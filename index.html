@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="description" content="Josh Bacon's Tech Blog">
+	<meta name="author" content="Josh Bacon">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+	<meta name="keywords" content="HTML, CSS, XML, XHTML, JavaScript">
+  <title>Josh Bacon</title>
+  <!-- LinkedIn Doesn't support Implicit Grant OAuth2 flow....
+  <script type="text/javascript" src="//platform.linkedin.com/in.js" async defer>
+	    api_key:   86si1hmxm82gf9
+	    onLoad:    linkedInAsyncInit
+	    authorize: true
+	    lang:      en_US
+	</script> -->
+  <script src="https://cdn.rawgit.com/webcomponents/webcomponentsjs/master/webcomponents-lite.js"></script>
+  <script src="/web-components/myDialogButtonComponent.js" type='module'></script>
+  <link rel="stylesheet" href="/css/transitions.css">
+  <link rel="stylesheet" href="/css/styling.css">
+	<script src='/index.js' type='module' defer></script>
+  <script src="https://apis.google.com/js/api.js?onload=googleApiInit" defer></script>
+  <script src="https://connect.facebook.net/en_US/sdk.js" defer></script>
+</head>
+<body>
+  <div id='scrollable'>
+    <header>
+      <div id='title' class="clickable" onclick='window.portfolio_router_navigateRoute("/")'>Josh Bacon</br>Full-Stack</br>Engineer</div>
+	    <div id='user-bar-area'>
+	      <nav>
+	        <span id="user-bar-greeting" class="hidden">Hello</span>
+	        <my-dialog-button id='user-bar-account' class="hidden">
+	          <span slot="open" class='clickable' >Account</span>
+	          <div slot='content'></div>
+	        </my-dialog-button>
+	        <span id="user-bar-logout" class='clickable hidden'>Disconnect</span>
+	        <my-dialog-button id='user-bar-connect'>
+	          <span slot="open" class='clickable'>Connect</span>
+	          <div slot="content"></div>
+	        </my-dialog-button>
+	        <my-dialog-button id='user-bar-sign-up'>
+	          <span slot="open" class='hidden clickable'>Sign Up</span>
+	          <div slot="content"></div>
+	        </my-dialog-button>
+	        <my-dialog-button id='user-bar-login'>
+	          <span slot="open" class='hidden clickable'>Login</span>
+	          <div slot="content"></div>
+	        </my-dialog-button>
+	        <my-dialog-button id='user-bar-set-password'>
+	          <span slot="open" class='hidden clickable'>Set Password</span>
+	          <div slot="content"></div>
+	        </my-dialog-button>
+	        <div id='user-bar-profile-pic' class="hidden">
+	          <img id='profile-pic' alt="" height='50' src="/assets/images/profile-pic-default.jpg">
+	        </div>
+	      </nav>
+	    </div>
+    </header>
+    <nav>
+      <span id='about' class='clickable' onclick='window.portfolio_router_navigateRoute("/about")'>About Me</span>
+      <span id='articles' class='clickable' onclick='window.portfolio_router_navigateRoute("/articles/2017/november/25/multi-vs-single-page-apps.html")'>Articles</span>
+      <span id='photos' class='clickable' onclick='window.portfolio_router_navigateRoute("/photos")'>Photos</span>
+      <span id='contact' class='clickable' onclick='window.portfolio_router_navigateRoute("/contact")'>Contact</span>
+    </nav>
+    <main>
+      <header>Main Header</header>
+      <section>
+      </section>
+    </main>
+  </div>
+  <footer>
+    <div id="social-links">
+    	<a id='profile-link-github' href='https://github.com/jbacon' target="_blank">
+    		<img src='/assets/images/lg_icon_kit/Knock%20Out%20White%20Circles/64x64%20PNG/github.png' alt='GitHub'>
+    	</a>
+    	<a id='profile-link-linkedin' href='https://www.linkedin.com/in/josh-bacon-851777a2' target="_blank">
+    		<img src='/assets/images/lg_icon_kit/Knock%20Out%20White%20Circles/64x64%20PNG/linkedin.png' alt='LinkedIn'>
+    	</a>
+    	<a id='profile-link-googleplus' href='https://plus.google.com/111337035319193393898' target="_blank">
+    		<img src='/assets/images/lg_icon_kit/Knock%20Out%20White%20Circles/64x64%20PNG/googleplus.png' alt='Google'>
+    	</a>
+    	<a id='profile-link-facebook' href='https://www.facebook.com/josh.bacon.90' target="_blank">
+    		<img src='/assets/images/lg_icon_kit/Knock%20Out%20White%20Circles/64x64%20PNG/facebook.png' alt='Facebook'>
+    	</a>
+    	<a id='profile-link-youtube' href='https://www.youtube.com/user/aegairsoft11' target="_blank">
+    		<img src='/assets/images/lg_icon_kit/Knock%20Out%20White%20Circles/64x64%20PNG/youtube.png' alt='Youtube'>
+    	</a>
+    </div>
+  </footer>
+</body>
+<style>
+html {
+	width: 100%;
+	height: 100%;
+	margin: auto;
+	position: relative;
+}
+	body {
+		overflow: hidden;
+		margin: inherit;
+		background-color: rgba(0,0,0,1);
+		height: 100%;
+		width: 100%;
+	}
+		#scrollable {
+			background-image: url(/assets/images/background0.jpg);
+		  background-position: top;
+			background-repeat: no-repeat;
+			background-size: cover;
+			overflow-y: scroll;
+			overflow-x: hidden;
+			height: calc(100% - 8%);
+			display: flex;
+			flex-direction: column;
+		}
+			#scrollable > header {
+				flex: 0 0 auto;
+				display: flex;
+				flex-direction: row;
+			}
+				#title {
+					padding: 2% 0% 0% 2%;
+					font-size: 1.5rem;
+					font-weight: bold;
+					flex: 0 0 auto;
+					width: fit-content;
+				}
+				#user-bar-area {
+					vertical-align: top;
+					text-align: right;
+					flex: 1 1 auto;
+				}
+				#user-bar-area > nav > * {
+					display: inline-block;
+					position: relative;
+					text-align: center;
+					vertical-align: top;
+					padding: .2rem .2rem .2rem .2rem;
+				  animation-duration: 1s;
+			  	animation-fill-mode: forwards;
+				  animation-name: slideinRight;
+				}
+				#profile-pic {
+					border-radius: 50%;
+				}
+			#scrollable > nav {
+				flex: 0 0 auto;
+				text-align: right;
+				vertical-align: bottom;
+				white-space: normal;
+			  animation-duration: 1s;
+			  animation-fill-mode: forwards;
+			  animation-name: slideinRight;
+			}
+				#scrollable > nav > * {
+					display: inline-block;
+					position: relative;
+					text-align: center;
+					vertical-align: bottom;
+					padding: .2rem .2rem .2rem .2rem;
+					white-space: nowrap;
+				  animation-duration: 4s;
+				  animation-fill-mode: forwards;
+				  animation-name: applyBackdrop;
+				}
+			#scrollable > main {
+				flex: 1 1 auto;
+				display: flex;
+				flex-direction: column;
+			}
+				#scrollable > main > header {
+					flex: 0 0 auto;
+					padding: 2% 2% 2% 2%;
+					font-size: 2rem;
+					font-weight: bold;
+				  animation-duration: 1s, 5s;
+				  animation-fill-mode: forwards;
+				  animation-name: slideinRight, applyBackdrop;
+				}
+				#scrollable > main > section {
+					flex: 1 1 auto;
+					padding: 0% 2% 0% 2%;
+				  animation-duration: 1s, 5s;
+				  animation-fill-mode: forwards;
+				  animation-name: slideinLeft, applyBackdrop;
+				  position: relative;
+				}
+		body > footer {
+			position: absolute;
+			bottom: 0%;
+			width: 100%;
+			height: 8%;
+		}
+			#social-links {
+				display: block;
+				overflow-x: scroll;
+				white-space: nowrap;
+				text-align: center;
+				height: 100%;
+			  animation-duration: 1s, 5s;
+			  animation-fill-mode: forwards;
+			  animation-name: slideinLeft, applyBackdrop;
+			}
+				#social-links a {
+					display: inline-block;
+					text-decoration: none;
+					height: 100%;
+				}
+				#social-links a img {
+					height: 90%;
+				}
+				#social-links a img:hover {
+					background: #62B9F3;
+					border-radius: 50%;
+				}
+</style>
+</html>

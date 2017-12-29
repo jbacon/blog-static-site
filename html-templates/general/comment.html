@@ -1,0 +1,259 @@
+<template>
+	<div id='comment'>
+		<header>
+			<div id='name'>Anonymous</div>
+			<div id='date'>Nov 5th, 2017</div>
+		</header>
+		<main>
+			<img id='profile-pic' alt='' src='/assets/images/profile-pic-default.jpg'>
+			<div id='content'>
+				<div id='text'></div>
+				<form id='text-edit-form' class='hidden' action=''>
+					<div id='text-edit' contenteditable="true"></div>
+					<input id='text-edit-submit' type='submit' value='Submit' />
+				</form>
+				<div id='text-edit-date' class='hidden'>Nov 5th, 2017</div>
+			</div>
+		</main>
+		<footer>
+			<div id='actions'>
+				<span id='reply-toggle' class='clickable left' name='Reply'>Reply</span>
+				<span id='flag-button' class='clickable right' title='Please flag if inappropriate comment..' name='Flag'>&#128681;</span>
+				<span id='down-vote-count' class='right'></span>
+				<span id='down-vote-button' class='clickable right' name='Down'>&#128078;</span>
+				<span id='up-vote-count' class='right'></span>
+				<span id='up-vote-button' class='clickable right' name='Up'>&#128077;</span>
+				<span id='remove-button' class='clickable hidden right' name='Remove'>Remove</span>
+				<span id='text-edit-toggle' class='clickable hidden right' name='Edit'>&#9998;</span>
+			</div>
+			<form id='reply-form' class='hidden' action=''>
+	      <textarea name='text' class='text' placeholder='Comment...' required></textarea>
+				<table>
+          <tr id='email-input-section'>
+            <td class='col1'>
+              <label for="email">Email</label>
+            </td>
+            <td  class='col2'>
+              <input class="email" type="email" name="email" placeholder="john-doe@domain.tld" required>
+            	<span>... <b><u><a class='or-login-link clickable' slot="open">sign up</a></u></b> or <b><u><a class='or-login-link clickable' slot="open">log in</a></u></b></span>
+          	</td>
+          </tr>
+          <tr id='name-first-input-section'>
+            <td class='col1'>
+              <label for="nameFirst">First Name</label>
+            </td>
+            <td class='col2'>
+              <input class="name-first" name="nameFirst" placeholder="..." required>
+            </td>
+          </tr>
+          <tr id='name-last-input-section'>
+            <td class='col1'>
+              <label for="nameLast">Last Name</label>
+            </td>
+            <td class='col2'>
+              <input class="name-last" name="nameLast" placeholder="..." required>
+            </td>
+          </tr>
+          <tr>
+            <td class='col1'>
+              <input class="reply-form-submit" type="submit" value='Submit'>
+            </td>
+            <td class='col2'>
+						</td>
+          </tr>
+        </table>
+			</form>
+			<div id='replies-toggle' class='clickable left' name='Replies'>Replies...</div>
+			<div id='replies-section' class='hidden'>
+				<div id='load-new-button' class='clickable hidden' name='Load Newest..'>Load Latest..</div>
+				<div id='replies' data-child-count='0'>
+					<slot id='reply-slot' name='reply-slot'></slot>
+				</div>
+				<div id='load-old-button' class='clickable hidden'>Load Older..</div>
+			</div>
+		</footer>
+	<div>
+	<style>
+		.hidden {
+			display: none !important;
+		}
+		#comment .invisible {
+			visibility: hidden  !important;
+		}
+		#comment .disabled {
+			text-shadow: 0 0 0 grey;
+			pointer-events: none;
+		}
+		.clickable.active {
+			font-style: oblique;
+			text-decoration: underline;
+		}
+		.clickable:not(.active) {
+			font-style: none;
+			text-decoration: none;
+		}
+		.clickable:not(.active):hover {
+			text-decoration: underline;
+			cursor: pointer;
+			font-style: oblique;
+		}
+		.clickable.active:hover {
+			text-decoration: none;
+			cursor: pointer;
+		}
+		#comment {
+			width: 100%;
+			margin-top: 1%;
+			position: relative;
+			animation-duration: 5s;
+			animation-fill-mode: forwards;
+			animation-name: fadein;
+		}
+			header {
+				background-color: rgba(255,255,255,0.2);
+				overflow: hidden;
+			}
+				#name {
+					font-size: .8rem;
+					font-weight: bold;
+					padding: .2rem;
+					float: left;
+				}
+				#date {
+					font-size: .8rem;
+					font-style: italic;
+					padding: .2rem;
+					float: right;
+				}
+			main {
+				position: relative;
+				background-color: rgba(255,255,255,0.2);
+				/*white-space: nowrap;*/
+				display: flex;
+				flex-direction: row;
+			}
+				#profile-pic {
+					flex: 0 0 auto;
+					text-align: left;
+					vertical-align: top;
+					padding: .2rem;
+					height: 40px;
+					border-radius: 50%;
+				}
+				#content {
+					flex: 1 1 auto;
+				}
+					#text {
+						color: white;
+						width: 100%;
+						font-size: 1rem;
+					}
+					#text-edit-date {
+						font-style: italic;
+						font-size: .8rem;
+						text-align: right;
+					}
+				#edit-form {
+					display: inline-block;
+					text-align: left;
+					vertical-align: top;
+					width: calc(100% - 3rem - 1%);
+					padding: .2rem;
+					white-space: normal;
+				}
+					#text-edit {
+						color: white;
+						width: 100%;
+						font-size: 1rem;
+					}
+				#replies,
+				#load-old-button {
+					margin-left: 10%;
+				}
+				#load-new-button {
+					background-color: rgba(255, 255, 255, .5);
+				}
+				#load-old-button {
+					background-color: rgba(255, 255, 255, .5);
+				}
+			footer {
+				font-size: .8rem;
+			}
+			#actions {
+				overflow: hidden;
+				background-color: rgba(255,255,255,0.2);
+				border-top: thin solid rgba(255, 255, 255, .5);
+				/*border-bottom: thin solid rgba(255, 255, 255, .5);*/
+			}
+				#actions > * {
+					display: inline-block;
+					position: relative;
+					padding: .2rem;
+					line-height: 1rem;
+					overflow: hidden;
+				}
+				#actions > .left {
+					float: left;
+				}
+				#actions > .right {
+					float: right;
+				}
+				#reply-toggle:not(.active)::before {
+					content: '';
+				}
+				#reply-toggle.active::before {
+					content: 'Discard ';
+				}
+				#up-vote-button,
+				#down-vote-button {
+					color: transparent;
+					text-shadow: 0 0 0 white;
+				}
+				#text-edit-toggle:not(.active)::after {
+					content:'Edit';
+				}
+				#text-edit-toggle.active::after {
+					content:'Cancel';
+				}
+			#replies-toggle {
+				margin-left: 10%;
+				background-color: rgba(255, 255, 255, .5);
+			}
+			#replies-toggle:not(.active)::before {
+				content: '';
+			}
+			#replies-toggle.active::before {
+				content: 'Hide ';
+			}
+			#reply-form {
+				margin-left: 10%;
+				/*padding-left: 10%;*/
+				/*width: 90%;*/
+				/*overflow-x: scroll;*/
+			}
+				#reply-form table {
+					/*width: 100%;*/
+				}
+				#reply-form .col1 {
+					white-space: nowrap;
+					/*width: 100px;*/
+				}
+				#reply-form .col2 {
+					width: 100%;
+					/*width: calc(100% - 100px);*/
+				}
+				#reply-form input {
+					background-color: rgba(255, 255, 255, 0.2);
+					border: none;
+					color: white;
+				}
+				#reply-form textarea {
+					width: 100%;
+					background-color: rgba(255, 255, 255, 0.2);
+					border: none;
+					color: white;
+					padding: unset;
+				}
+	</style>
+</template>
+<script type='module' src='./comment.js'></script>

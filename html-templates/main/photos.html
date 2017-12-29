@@ -1,0 +1,68 @@
+<script src="/web-components/myCarouselComponent.js" type='module'></script>
+<template>
+	<my-carousel>
+		<div slot='slide'>
+    	<my-dialog-button>
+    		<img class='preview' slot='open' src="/assets/images/skiing.jpg">
+    		<img class='fullscreen' slot='content' src="/assets/images/skiing.jpg">
+    	</my-dialog-button>
+			<div class='description'>Me! @CrystalMountainResort</div>
+		</div>
+		<div slot='slide'>
+    	<my-dialog-button>
+  			<img class='preview' slot='open' src="/assets/images/crystalmtn.jpg">
+  			<img class='fullscreen' slot='content' src="/assets/images/crystalmtn.jpg">
+    	</my-dialog-button>
+			<div class='description'>Beautiful View @CrystalMountainResort</div>
+		</div>
+		<div slot='slide'>
+    	<my-dialog-button>
+				<img class='preview' slot='open' class='hidden' src="/assets/images/skiselfie.jpg">
+				<img class='fullscreen' slot='content' src="/assets/images/skiselfie.jpg">
+    	</my-dialog-button>
+			<div class='description'>Selfie @CrystalMountainResort</div>
+		</div>
+		<div slot='slide'>
+    	<my-dialog-button>
+				<img class='preview' slot='open' src="/assets/images/waterfall.jpg">
+				<img class='fullscreen' slot='content' src="/assets/images/waterfall.jpg">
+    	</my-dialog-button>
+			<div class='description'>Waterfall @ColchuckLake</div>
+		</div>
+		<div slot='slide'>
+    	<my-dialog-button>
+				<img class='preview' slot='open' src="/assets/images/bridge.jpg">
+				<img class='fullscreen' slot='content' src="/assets/images/bridge.jpg">
+    	</my-dialog-button>
+			<div class='description'>Bridge @ColchuckLake</div>
+		</div>
+		<div slot='slide'>
+    	<my-dialog-button>
+				<img class='preview' slot='open' src="/assets/images/tree.jpg">
+				<img class='fullscreen' slot='content' src="/assets/images/tree.jpg">
+    	</my-dialog-button>
+			<div class='description'>Tree @SanJaunIslands</div>
+		</div>
+		<div slot='slide'>
+    	<my-dialog-button>
+				<img class='preview' slot='open' src="/assets/images/hummingbird.jpg">
+				<img class='fullscreen' slot='content' src="/assets/images/hummingbird.jpg">
+    	</my-dialog-button>
+			<div class='description'>Hummingbird @InMyBackyard</div>
+		</div>
+		<div slot='slide'>
+    	<my-dialog-button>
+				<img class='preview' slot='open' src="/assets/images/skigroup.jpg">
+				<img class='fullscreen' slot='content' src="/assets/images/skigroup.jpg">
+    	</my-dialog-button>
+			<div class='description'>Ski Trip @CrystalMountainResort</div>
+		</div>
+	</my-carousel>
+	<style>
+	my-carousel {
+		width: 96%;
+		height: 96%;
+	}
+	</style>
+	<script type="module" src='/html-templates/main/photos.js'></script>
+</template>

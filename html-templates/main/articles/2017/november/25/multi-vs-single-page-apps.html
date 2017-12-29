@@ -1,0 +1,83 @@
+<script type="text/JavaScript"></script>
+<template>
+		<p>
+			Advancements in browser JavaScript and the rise of server APIs lay the foundation for Single-Page Applications (SPAs). 
+		</p>
+	<h1>What is a SPA?</h1>
+	<p>
+			Traditionally, navigating between web pages would cause rending of a entire page's HTML content on each request.
+			More often than not, only part of a page's content is typically changed between each navigations. 
+			Inadvertently, and often times... headers, footers, menus, and titles are all re-rendered unnecessarily. 
+			So we must ask, why should the entire page reload just to render partial content? 
+			SPAs address this concern by using modern browser JavaScript features to perform page modifications (DOM manipulations) on-the-fly. 
+			Browser support for asynchronous execution, events, listeners, and HTML imports all make the DOM dynamic and reactive. 
+			Modern websites should all use SPA architecture. 
+			It just doesn't make sense to use multi-page architectures anymore... 
+			With that said, even with the Googles, Facebooks, and Microsofts of the world, SPA is easier said than done... 
+			Maintaining speed, state, history, and events is a major programmatic challenge not to be taken lightly. 
+			Frameworks have risen to the challenge and offer assistance to the aspiring web developer. 
+			Lets all avoid making our own home-cooked JavaScript spaghetti. 
+			</br>
+			</br>
+			<img width='100%' src='/assets/images/spaghetti-code.gif'></img>
+			</br>
+			* Don't forget the meatballs!
+			</br>
+		</p>
+	<h1>FRAMEWORK HELL</h1>
+		<p>
+			With the increased difficulty of building SPAs, frameworks have risen to fill a void. 
+			But choose wisely; that snazzy new framework could very well be tomorrow's techincal debt. 
+			</br>
+			</br>
+			There are many to choose from:
+			<ul>
+				<li>react</li>
+				<li>angular</li>
+				<li>vue</li>
+				<li>ember</li>
+				<li>knockout</li>
+				<li>polymer</li>
+				<li>backbone</li>
+				<li>flux</li>
+			</ul>
+			</br>
+			Has the native browser Web API failed us? 
+			When starting this blog project, I was caught in framework hell. 
+			Choosing tools that did not employ SPA principles, caused me much headache. 
+			Critical to choosing a framework and architecture is thorough understanding of the direction of the modern web. 
+			From SSR, CSR, MVC, MVU, MVI, Flux, Redux, SPA, MPA... there are many patterns and architectures to understand. 
+			If you don't understand the high-level trade-offs of each technique, architecture, or tool you will succumb to the whim of the next popular buzz-word. 
+			</br>
+			</br>
+			My Current Criteria for Choosing Front-End Framework:
+			<ul>
+				<li>Single-Page</li>
+				<li>Event Driven</li>
+				<li>Lightweight</li>
+				<li>Reactive</li>
+				<li>Data Binding</li>
+				<li>URL Routing</li>
+				<li>NO Server Rendering</li>
+			</ul>
+			</br>
+			Component driven architecture is clearly the theme of 2017. 
+			For this blog I decided to use <a href='http://vanilla-js.com/' target='_blank'>VanillaJS</a>, an old forgotten framework that's been around since the beginning. 
+			While not as snazzy as [<i>insert super awesome new framework</i>], VanillaJS seems to get the job done. 
+			VanillaJS allowed me to implement my own simple Web APIs teaching me more than I would have using <i>yesterday's</i> awesome framework. 
+			Non-the-less, the challenges of managing state, data, and events in VanillaJS is not simple, and conventions are not concisely defined. 
+			</br>
+			</br>
+			Features to Consider for SPA Implementation using VanillaJS: 
+			<ul>
+				<li>SEO - Search Engine Optimization</li>
+				<li>URL Router - Handling urls, redirects, navigation, and history. See: <a href='http://krasimirtsonev.com/blog/article/deep-dive-into-client-side-routing-navigo-pushstate-hash' target='_blank'>Deep Dive into Client-Side Routing</a></li>
+				<li>Event Engine - API for publishing and subscribing to events. See: <a href='https://developer.mozilla.org/en-US/docs/Web/API/EventTarget' target='_blank'>EventTarget API</a></li>
+				<li>Data Binding - Binding dynamic data to presentation layer (DOM/HTML). See: <a href=''></a></li>
+				<li>Templating - Reusable HTML fragments. See: <a href='https://developer.mozilla.org/en-US/docs/Web/HTML/Element/template' target='_blank'>HTML Templates</a>
+				<li>Components - Defining Custom HTML Elements, encapsulating both HTML & JavaScript. See: <a href='https://www.webcomponents.org/' target='_blank'>Web Components</a>
+			</ul>
+		</p>
+  <style>
+	</style>
+</template>

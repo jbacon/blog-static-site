@@ -1,0 +1,75 @@
+<template>
+	<div id='account-section'>
+    <input class='dropdown-toggler' type="checkbox" id="edit-details-button">
+    <label class='title clickable' for="edit-details-button">Edit Account</label>
+		<form id='edit-details-form' class='dropdown-content' action=''>
+			<table>
+				<tr>
+					<td><label for="email">Email</label></td>
+					<td><input class="email" type="email" name="email" placeholder="local-part@sldomain.tld" value="${this.account.email}" required></td>
+				</tr>
+				<tr>
+					<td><label for="name-first">First Name</label></td>
+					<td><input class="name-first" type="name" name="nameFirst" placeholder="John" value="${this.account.nameFirst}" required></td>
+				</tr>
+				<tr>
+					<td><label for="name-last">Last Name</label></td>
+					<td><input class="name-last" type="name" name="nameLast" placeholder="Doe" value="${this.account.nameLast}" required></td>
+				</tr>
+			</table>
+	    <div>
+	      <input class="submit" type="submit">
+	    </div>
+		</form>
+    <input class='dropdown-toggler' type="checkbox" id="reset-password-button">
+    <label class='title clickable' for="reset-password-button">Password Reset</label>
+		<form id='password-reset-form' class='dropdown-content' action=''>
+			<table>
+				<tr>
+					<td><label for="oldPassword">Old Password</label></td>
+					<td><input class="old-password" type="password" name="oldPassword" placeholder="Old password.." required></td>
+				</tr>
+				<tr>
+					<td><label for="newPassword">New Password</label></td>
+					<td><input class="new-password" type="password" name="newPassword" placeholder="New password.." ></td>
+				</tr>
+				<tr>
+					<td><label for="newPasswordRetyped">New Password</br>Retyped</label></td>
+					<td><input class="new-password-retyped" type="password" name="newPasswordRetyped" placeholder="New password.." required></td>
+				</tr>
+			</table>
+	    <div>
+	      <input class="submit" type="submit">
+	    </div>
+		</form>
+	</div>
+	<style>
+    .title {
+        font-weight: bold;
+    }
+		#account-section {
+        text-align: left;
+        vertical-align: top;
+        color: black;
+		}
+    label {
+        padding: 0px;
+        display: block;
+    }
+		/*#account-section label {
+			font: bold 15px Verdana, sans-serif;
+			color: black;
+		}
+		#account-section .hidden {
+			display: none;
+		}
+		#account-section .disabled {
+			color: grey;
+			pointer-events: none;
+		}
+		#account-section .active {
+			color: green;
+		}*/
+	</style>
+	<script type="module" src='/html-templates/dialogs/account.js'></script>
+</template>

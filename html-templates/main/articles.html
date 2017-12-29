@@ -1,0 +1,155 @@
+<template>
+    <script type="module" src='/html-templates/main/articles.js' async defer></script>
+    <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js" async defer></script><!--
+ --><div id='articles'>
+	 		<div id='articles-nav'>
+	    	<ul class='list-years'>
+	    		<li>
+				    <input class='dropdown-toggler' type="checkbox" id="li-2017">
+				    <label for="li-2017" class='clickable'>2017</label>
+		    		<ul class='dropdown-content list-months'>
+	    				<li class='hidden'>
+						    <input class='dropdown-toggler' type="checkbox" id="li-2017-december">
+						    <label for="li-2017-december" class='clickable'>December</label>
+		    				<ul class='dropdown-content list-articles'>
+		    				</ul>
+	    				</li>
+	    				<li class=''>
+						    <input class='dropdown-toggler' type="checkbox" id="li-2017-november">
+						    <label for="li-2017-november" class='clickable'>November</label>
+		    				<ul class='dropdown-content list-articles'>
+			    				<li>
+			    					<div class='clickable' onclick='window.portfolio_router_navigateRoute("/articles/2017/november/19/building-a-tech-hub.html")'>Building A Tech Hub</div>
+			    				</li>
+			    				<li>
+			    					<div class='clickable' onclick='window.portfolio_router_navigateRoute("/articles/2017/november/24/narrative-on-web-applications.html")'>Narrative On Web Apps</div>
+			    				</li>
+			    				<li>
+			    					<div class='clickable' onclick='window.portfolio_router_navigateRoute("/articles/2017/november/25/multi-vs-single-page-apps.html")'>Multi vs Single Page Apps</div>
+			    				</li>
+		    				</ul>
+	    				</li>
+	    				<li class='hidden'>
+						    <input class='dropdown-toggler' type="checkbox" id="li-2017-october">
+						    <label for="li-2017-october" class='clickable'>October</label>
+		    				<ul class='dropdown-content list-articles'>
+		    				</ul>
+	    				</li>
+	    				<li class='hidden'>
+						    <input class='dropdown-toggler' type="checkbox" id="li-2017-september">
+						    <label for="li-2017-september" class='clickable'>September</label>
+		    				<ul class='dropdown-content list-articles'>
+		    				</ul>
+	    				</li>
+	    				<li class='hidden'>
+						    <input class='dropdown-toggler' type="checkbox" id="li-2017-august">
+						    <label for="li-2017-august" class='clickable'>August</label>
+		    				<ul class='dropdown-content list-articles'>
+		    				</ul>
+	    				</li>
+	    				<li class='hidden'>
+						    <input class='dropdown-toggler' type="checkbox" id="li-2017-july">
+						    <label for="li-2017-july" class='clickable'>July</label>
+		    				<ul class='dropdown-content list-articles'>
+		    				</ul>
+	    				</li>
+	    				<li class='hidden'>
+						    <input class='dropdown-toggler' type="checkbox" id="li-2017-june">
+						    <label for="li-2017-june" class='clickable'>June</label>
+		    				<ul class='dropdown-content list-articles'>
+		    				</ul>
+	    				</li>
+	    				<li class='hidden'>
+						    <input class='dropdown-toggler' type="checkbox" id="li-2017-may">
+						    <label for="li-2017-may" class='clickable'>May</label>
+		    				<ul class='dropdown-content list-articles'>
+		    				</ul>
+	    				</li>
+	    				<li class='hidden'>
+						    <input class='dropdown-toggler' type="checkbox" id="li-2017-april">
+						    <label for="li-2017-april" class='clickable'>April</label>
+		    				<ul class='dropdown-content list-articles'>
+		    				</ul>
+	    				</li>
+	    				<li class='hidden'>
+						    <input class='dropdown-toggler' type="checkbox" id="li-2017-march">
+						    <label for="li-2017-march" class='clickable'>March</label>
+		    				<ul class='dropdown-content list-articles'>
+		    				</ul>
+	    				</li>
+	    				<li class='hidden'>
+						    <input class='dropdown-toggler' type="checkbox" id="li-2017-february">
+						    <label for="li-2017-february" class='clickable'>February</label>
+		    				<ul class='dropdown-content list-articles'>
+		    				</ul>
+	    				</li>
+	    				<li class='hidden'>
+						    <input class='dropdown-toggler' type="checkbox" id="li-2017-january">
+						    <label for="li-2017-january" class='clickable'>January</label>
+		    				<ul class='dropdown-content list-articles'>
+		    				</ul>
+	    				</li>
+		    		</ul>
+	    		</li>
+	    	</ul>
+	    </div><!--
+	--><div id='article-content'>
+				<a name='top' class='hidden'>Link to Top</a>
+		    <div id="article-header"></div>
+		    <div id='article-date'></div>
+		    <div id='article-section'></div>
+		    <div id="article-footer">
+		    	<div id='comment-section-title'>COMMENT SECTION</div>
+		    	<div id='comment-section'></div>
+		    </div>
+	    </div>
+	  </div>
+    <style>
+    	#articles {
+  			display: flex;
+			  flex-direction: row;
+			  flex-wrap: wrap;
+    	}
+		  	#articles-nav {
+	    		flex: 1 0 auto; /* auto means look at width property */
+			  }
+					#articles-nav ul {
+					  list-style: none;
+					  margin: 0px 0px 0px 0px;
+					  padding: 0px 0px 0px 0px;
+					}
+					#articles-nav label {
+					  display: block;
+					  cursor: pointer;
+					  padding: .2rem .2rem .2rem .2rem;
+					  border: 1px solid #fff;
+					  border-bottom: none;
+					}
+					#articles-nav li {
+					  margin: 0px 0px 10px 0px;
+					}
+	    	#article-content {
+		  		flex: 1 1 75%;
+		  		width: 100%;
+		  		overflow-x: hidden;
+	    	}
+		    	#article-header {
+		    		font-size: 1.8rem;
+		    		font-weight: bold;
+		    	}
+		    	#article-date {
+		    		font-size: 1rem;
+		    		font-style: italic;
+		    	}
+	    		#article-section {
+	    			position: relative;
+					  animation-duration: 1s;
+					  animation-fill-mode: forwards;
+					  animation-name: slideinLeft;
+	    		}
+		#comment-section-title {
+			font-weight: bold;
+			background: rgba(255, 255, 255, .5);
+		}
+    </style>
+</template>

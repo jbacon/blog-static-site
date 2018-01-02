@@ -387,7 +387,7 @@ class Comment extends HTMLElement {
 	}
 	async _notifyOnReply() {
 		const response = await post({
-			route: '/comments/notifyOnReply',
+			route: '/comments/notify-on-reply',
 			body: {
 				_id: this.commentJSON._id || null,
 				text: this.elementNotifyOnReply.checked

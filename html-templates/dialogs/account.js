@@ -13,6 +13,7 @@ const editDetailsForm = document.getElementById('edit-details-form')
 const editDetailsFormInputEmail = editDetailsForm.querySelector('.email')
 const editDetailsFormInputNameFirst = editDetailsForm.querySelector('.name-first')
 const editDetailsFormInputNameLast = editDetailsForm.querySelector('.name-last')
+const editDetailsFormInputNotifyOnMyCommentReplies = editDetailsForm.querySelector('.notify-on-my-comment-replies')
 const editDetailsFormInputSubmit = editDetailsForm.querySelector('.submit')
 const passwordResetForm = document.getElementById('password-reset-form')
 
@@ -20,6 +21,7 @@ var initUser = () => {
 	editDetailsFormInputEmail.value = getUser().email
 	editDetailsFormInputNameFirst.value = getUser().nameFirst
 	editDetailsFormInputNameLast.value = getUser().nameLast
+	editDetailsFormInputNotifyOnMyCommentReplies.checked = getUser().notifyOnMyCommentReplies
 }
 if(getToken()) {
 	initUser()
@@ -31,6 +33,7 @@ window.addEventListener('logout-event', (e) => {
 	editDetailsFormInputEmail.value = ''
 	editDetailsFormInputNameFirst.value = ''
 	editDetailsFormInputNameLast.value = ''
+	editDetailsFormInputNotifyOnMyCommentReplies.checked = false
 })
 passwordResetForm.addEventListener('submit', (event) => {
 	event.preventDefault()
@@ -58,9 +61,10 @@ editDetailsForm.addEventListener('submit', (event) => {
 	post({
 		route: '/account/edit-details',
 		body: {
-			email: document.getElementById('edit-details-form').querySelector('.email').value,
-			nameFirst: document.getElementById('edit-details-form').querySelector('.name-first').value,
-			nameLast: document.getElementById('edit-details-form').querySelector('.name-last').value
+			email: editDetailsFormInputEmail.value,
+			nameFirst: editDetailsFormInputNameFirst.value,
+			nameLast: editDetailsFormInputNameLast.value,
+			notifyOnMyCommentReplies: editDetailsFormInputNotifyOnMyCommentReplies.checked
 		}
 	})
 	.then((response) => {

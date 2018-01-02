@@ -17,6 +17,7 @@
 					<td><input class="name-last" type="name" name="nameLast" placeholder="Doe" value="${this.account.nameLast}" required></td>
 				</tr>
 			</table>
+			<div><input class="notify-on-my-comment-replies" name="notifyOnMyCommentReplies" type="checkbox">Notify on my comment's replies?</div>
 	    <div>
 	      <input class="submit" type="submit">
 	    </div>
@@ -56,20 +57,6 @@
         padding: 0px;
         display: block;
     }
-		/*#account-section label {
-			font: bold 15px Verdana, sans-serif;
-			color: black;
-		}
-		#account-section .hidden {
-			display: none;
-		}
-		#account-section .disabled {
-			color: grey;
-			pointer-events: none;
-		}
-		#account-section .active {
-			color: green;
-		}*/
 	</style>
 	<script type="module" src='/html-templates/dialogs/account.js'></script>
 </template>

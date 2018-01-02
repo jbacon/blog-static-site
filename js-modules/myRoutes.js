@@ -80,19 +80,10 @@ registerRoute(/^\/auth\/email\/register\/callback#token=(.+)$/, async (token) =>
 	alert('Account registration completed! Welcome!')
 	await navigateRoute('/')
 })
-registerRoute(/^\/auth\/email\/forgotpassword\/callback#token=(.+)$/, async (token) => {
-	const response = await post({
-		route: '/auth/email/forgotpassword/callback',
-		body: { token: encodeURIComponent(token) }
-	})
-	alert('Password reset confirmed! Your new password has been sent to your email.')
-	navigateRoute('/')
-})
-/*
-1. Load Popup HTML/JS
-2. Call Popup function await result
-*/
 registerRoute(/^\/auth\/email\/silent-registration\/callback#token=(.+)$/, async (token) => {
+	await loadSetPassword()
+})
+registerRoute(/^\/auth\/email\/password-reset\/callback#token=(.+)$/, async (token) => {
 	await loadSetPassword()
 })
 registerRoute(/\?([^#]+)/, async (queryString) => {

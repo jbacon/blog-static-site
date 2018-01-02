@@ -37,6 +37,7 @@ passwordResetForm.addEventListener('submit', (event) => {
 	const oldPassword = document.getElementById('password-reset-form').querySelector('.old-password').value
 	const newPassword = document.getElementById('password-reset-form').querySelector('.new-password').value
 	const newPasswordRetyped =  document.getElementById('password-reset-form').querySelector('.new-password-retyped').value
+	passwordResetForm.reset()
 	if(newPassword == newPasswordRetyped) {
 		post({
 			route: '/account/reset-password',
@@ -62,6 +63,8 @@ editDetailsForm.addEventListener('submit', (event) => {
 			nameLast: document.getElementById('edit-details-form').querySelector('.name-last').value
 		}
 	})
-	.then((response) => { alert('Success! Logout to apply changes') })
+	.then((response) => {
+		alert('Success! Logout to apply changes')
+	})
 	.catch(handleServerError)
 })

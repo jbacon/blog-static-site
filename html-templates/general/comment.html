@@ -7,24 +7,28 @@
 		<main>
 			<img id='profile-pic' alt='' src='/assets/images/profile-pic-default.jpg'>
 			<div id='content'>
+				<div id='owner-actions' class='hidden'>
+					<span id='text-edit-toggle' class='clickable hidden left' name='Edit' title='Click to edit your comment'>&#9998;</span>
+					<span id='remove-button' class='clickable hidden left' name='Remove' title='Click to remove your comment.'>Remove</span>
+					<span id='notify' class='left clickable' name='Notifications'><label><input id="notify-on-reply-edit" type="checkbox" checked>Notify on Reply</label></span>
+				</div>
 				<div id='text'></div>
 				<form id='text-edit-form' class='hidden' action=''>
 					<div id='text-edit' contenteditable="true"></div>
-					<input id='text-edit-submit' type='submit' value='Submit' />
+					<input id='text-edit-submit' type='submit' value='Submit'>
 				</form>
-				<div id='text-edit-date' class='hidden'>Nov 5th, 2017</div>
+				<div id='text-edit-date' class='hidden right'>Nov 5th, 2017</div>
 			</div>
 		</main>
 		<footer>
 			<div id='actions'>
-				<span id='reply-toggle' class='clickable left' name='Reply'>Reply</span>
-				<span id='flag-button' class='clickable right' title='Please flag if inappropriate comment..' name='Flag'>&#128681;</span>
+				<span id='reply-toggle' class='clickable left' name='Reply' title='Click to reply to this comment.'>Reply</span>
+				<span id='flag-button' class='clickable right' title='Please flag if inappropriate comment..' name='Flag' title='Click to flag as inappropriate.'>&#128681;</span>
 				<span id='down-vote-count' class='right'></span>
-				<span id='down-vote-button' class='clickable right' name='Down'>&#128078;</span>
+				<span id='down-vote-button' class='clickable right' name='Down' title='Down Vote'>&#128078;</span>
 				<span id='up-vote-count' class='right'></span>
-				<span id='up-vote-button' class='clickable right' name='Up'>&#128077;</span>
-				<span id='remove-button' class='clickable hidden right' name='Remove'>Remove</span>
-				<span id='text-edit-toggle' class='clickable hidden right' name='Edit'>&#9998;</span>
+				<span id='up-vote-button' class='clickable right' name='Up' title='Up Vote'>&#128077;</span>
+				<span id='link' class='clickable right' name='Link' title='Copy link'>&#128279;</span>
 			</div>
 			<form id='reply-form' class='hidden' action=''>
 	      <textarea name='text' class='text' placeholder='Comment...' required></textarea>
@@ -35,7 +39,7 @@
             </td>
             <td  class='col2'>
               <input class="email" type="email" name="email" placeholder="john-doe@domain.tld" required>
-            	<span>... <b><u><a class='or-login-link clickable' slot="open">sign up</a></u></b> or <b><u><a class='or-login-link clickable' slot="open">log in</a></u></b></span>
+            	<span>... <b><u><a class='or-signup-link clickable' slot="open">sign up</a></u></b> or <b><u><a class='or-login-link clickable' slot="open">log in</a></u></b></span>
           	</td>
           </tr>
           <tr id='name-first-input-section'>
@@ -54,14 +58,10 @@
               <input class="name-last" name="nameLast" placeholder="..." required>
             </td>
           </tr>
-          <tr>
-            <td class='col1'>
-              <input class="reply-form-submit" type="submit" value='Submit'>
-            </td>
-            <td class='col2'>
-						</td>
-          </tr>
         </table>
+        <input class="notify-on-reply" name="notifyOnReply" type="checkbox" checked/>
+      	<label for="notifyOnReply">Notify on Replies?</label>
+        <input class="reply-form-submit" type="submit" value='Submit'>
 			</form>
 			<div id='replies-toggle' class='clickable left' name='Replies'>Replies...</div>
 			<div id='replies-section' class='hidden'>
@@ -152,6 +152,7 @@
 						font-style: italic;
 						font-size: .8rem;
 						text-align: right;
+						padding-right: .3rem;
 					}
 				#edit-form {
 					display: inline-block;
@@ -165,6 +166,8 @@
 						color: white;
 						width: 100%;
 						font-size: 1rem;
+						resize: vertical;
+						outline: auto 5px lightblue;
 					}
 				#replies,
 				#load-old-button {
@@ -179,6 +182,24 @@
 			footer {
 				font-size: .8rem;
 			}
+			#owner-actions {
+				overflow: hidden;
+				/*border-top: thin solid rgba(255, 255, 255, .5);*/
+				/*background-color: rgba(255,255,255,0.2);*/
+			}
+					#owner-actions > .left {
+						float: left;
+					}
+					#owner-actions > .right {
+						float: right;
+					}
+				#owner-actions > * {
+					display: inline-block;
+					position: relative;
+					padding-right: .4rem;
+					line-height: 1rem;
+					overflow: hidden;
+				}
 			#actions {
 				overflow: hidden;
 				background-color: rgba(255,255,255,0.2);
@@ -188,7 +209,7 @@
 				#actions > * {
 					display: inline-block;
 					position: relative;
-					padding: .2rem;
+					padding: .3rem;
 					line-height: 1rem;
 					overflow: hidden;
 				}
@@ -205,9 +226,17 @@
 					content: 'Discard ';
 				}
 				#up-vote-button,
+				#link,
+				#flag-button,
 				#down-vote-button {
 					color: transparent;
 					text-shadow: 0 0 0 white;
+				}
+				#link:hover:before {
+					content: 'Copy';
+				}
+				#link:active:before {
+					content: '';
 				}
 				#text-edit-toggle:not(.active)::after {
 					content:'Edit';
@@ -253,6 +282,10 @@
 					border: none;
 					color: white;
 					padding: unset;
+					resize: vertical;
+				}
+				#reply-form .reply-form-submit {
+					display: block;
 				}
 	</style>
 </template>

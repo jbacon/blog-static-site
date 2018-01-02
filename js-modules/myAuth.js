@@ -10,6 +10,7 @@ export {
 	loginViaCredentials,
 	loginViaRegistrationToken,
 	loginViaSilentRegistration,
+	loginViaPasswordReset,
 	login,
 	logout
 }
@@ -80,6 +81,18 @@ async function loginViaSilentRegistration({
 		rest_api_path: '/auth/email/silent-registration/callback',
 		bodyJson: {
 			token: encodeURIComponent(silent_registration_token),
+			password: new_password
+		}
+	})
+}
+async function loginViaPasswordReset({
+	password_reset_token=(()=>{throw new Error('Missing parameter')})(),
+	new_password=(()=>{throw new Error('Missing parameter')})()
+}) {
+	return login({
+		rest_api_path: '/auth/email/password-reset/callback',
+		bodyJson: {
+			token: encodeURIComponent(password_reset_token),
 			password: new_password
 		}
 	})

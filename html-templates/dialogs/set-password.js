@@ -2,7 +2,8 @@ import {
 	getUser,
 	currentAuthType,
 	getToken,
-	loginViaSilentRegistration } from '/js-modules/myAuth.js'
+	loginViaSilentRegistration,
+	loginViaPasswordReset } from '/js-modules/myAuth.js'
 import { handleServerError } from '/js-modules/myUtilities.js'
 import { portfolioApiServerAddress } from '/js-modules/myConfigs.js'
 import { navigateRoute } from '/js-modules/myRouter.js'
@@ -12,16 +13,29 @@ setPasswordForm.addEventListener('submit', (event) => {
 	event.preventDefault()
 	const newPassword = setPasswordForm.querySelector('.new-password').value
 	const newPasswordRetyped =  setPasswordForm.querySelector('.new-password-retyped').value
+	setPasswordForm.reset()
 	if(newPassword === newPasswordRetyped) {
-		var searchParams = new URLSearchParams(window.location.hash.slice(1));
-		loginViaSilentRegistration({
-			silent_registration_token: searchParams.get("token"),
-			new_password: newPassword
-		})
-			.catch(handleServerError)
-			.then(() => { navigateRoute('/') })
+		const searchParams = new URLSearchParams(window.location.hash.slice(1));
+		const token = searchParams.get('token')
+		const type = JSON.parse(atob(token.split('.')[1])).data.type
+		if(type === 'silent-registration') {
+			loginViaSilentRegistration({
+				silent_registration_token: token,
+				new_password: newPassword
+			})
+				.catch(handleServerError)
+				.then(() => { navigateRoute('/') })
+		}
+		else if(type === 'password-reset') {
+			loginViaPasswordReset({
+				password_reset_token: token,
+				new_password: newPassword
+			})
+				.catch(handleServerError)
+				.then(() => { navigateRoute('/') })
+		}
 	}
 	else {
-		alert('Passwords are mismatched. Try re-typing.')
+		alert('Passwords mismatched.. retype')
 	}
 })

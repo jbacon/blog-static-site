@@ -1,8 +1,9 @@
 # Blog Website Static Content
 
-[https://portfolio.joshbacon.name](http://portfolio.joshbacon.name)
+My Blog's public static site files. 
+Built entirely as a Single Page Application by altering S3's redirect policy (using some trickery). 
+No static site generators were used for these files. 
+S3 Static Site Bucket w/ CloudFornt is my current server of choice. 
+For development, `docker-compose.yaml` launches a local nginx reverse proxy server instead. 
 
-This repo includes all static content for my blog website. Content in this repo is publically available. 
-Files are served to client browsers using AWS S3 Static Site hosting w/ CloudFront. 
-To update production, execute `push-to-prod-s3.sh`. 
-For development purposes `docker-compose up` can be used to spin up a local nginx server. 
+[https://portfolio.joshbacon.name](http://portfolio.joshbacon.name)

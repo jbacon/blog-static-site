@@ -18,5 +18,5 @@ async function loadArticle(year, month, day, articleName) {
 	newArticleSection.appendChild(document.importNode(linkImport.querySelector('template').content, true))
 	articleSectionOld.replaceWith(newArticleSection)
 	const linkImportComments = await importHtml('/html-templates/general/comment.html')
-	new CommentSection('/articles/'+year+'/'+month+'/'+day+'/'+articleName+'.html')
+	new CommentSection({ entity: '/articles/'+year+'/'+month+'/'+day+'/'+articleName+'.html' })
 }

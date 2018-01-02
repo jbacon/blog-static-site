@@ -1,5 +1,6 @@
 import { portfolioApiServerAddress } from '/js-modules/myConfigs.js'
 import { getToken } from '/js-modules/myAuth.js'
+import { loadLogin } from '/index.js'
 
 export { importHtml, handleServerError, scaleImgToFillElement, get, post }
 
@@ -29,32 +30,25 @@ async function importHtml(href) {
 		}
 	})
 }
+// function handleClientError(error) {
+// 	console.log(error)
+// }
 function handleServerError(request) {
-	var message = ''
-	if(typeof request.response !== 'undefined') {
-		if(typeof(request.response) === 'string' ) {
-			var responseJSON = null
-			try {
-				responseJSON = JSON.parse(request.response)
-				message += responseJSON.message+'. '+((responseJSON.stack) ? ('Stack: '+responseJSON.stack) : '')
-			}
-			catch(e) {
-				message += request.response
-			}
-		}
-		else if(request.response instanceof Object) {
-			message += request.response.message+'. '+((request.response.stack) ? ('Stack: '+request.response.stack) : '')
-		}
-		else {
-			message += request.response.toString()
-		}
+	if((!request instanceof XMLHttpRequest))
+		throw new Error('Not instance of XMLHttpRequest!')
+	if(request.status === 0) {
+		alert('Sorry, something went wrong. No response from server?')
+	}
+	else if(request.status === 401) {
+		alert('Sign in to perform this action')
+		loadLogin().catch(handleServerError)
+	}
+	else if(request.status === 402) {
+		alert('Sorry, you\'re account is not authorized to perform this action')
 	}
 	else {
-		message += 'No response message was returned from server.'
+		alert('Sorry, something went wrong. Message: '+request.response+'. (STATUS '+request.status+' - '+request.statusText+')')
 	}
-	message += 'Server Error: '+request.status+' - '+request.statusText+'. '
-	alert(message)
-	return
 }
 function scaleImgToFillElement(img, element) {
 	const heightFactor = element.clientHeight / img.naturalHeight

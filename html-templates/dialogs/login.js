@@ -6,6 +6,7 @@ import {
 	post,
 	get
 } from '/js-modules/myUtilities.js'
+import { navigateRoute } from '/js-modules/myRouter.js'
 import { loginViaCredentials } from '/js-modules/myAuth.js'
 import { portfolioApiServerAddress } from '/js-modules/myConfigs.js'
 
@@ -45,9 +46,12 @@ const formLoginLocal = document.getElementById('login-form-local')
 // const formLoginFacebook     = document.getElementById('login-form-facebook')
 formLoginLocal.addEventListener('submit', (event) => {
 	event.preventDefault()
+	const email = formLoginLocal.elements.namedItem('email').value
+	const password = formLoginLocal.elements.namedItem('password').value
+	formLoginLocal.reset()
 	loginViaCredentials({
-		email: formLoginLocal.elements.namedItem('email').value,
-		password: formLoginLocal.elements.namedItem('password').value
+		email: email,
+		password: password
 	})
   	.catch(handleServerError)
 })
@@ -58,14 +62,15 @@ formForgotPassword.addEventListener('submit', (event) => {
 	for(var i = 0; i < event.target.length - 1; i++) {
 		jsonData[formForgotPassword.elements[i].name] = formForgotPassword.elements[i].value
 	}
+	formForgotPassword.reset()
 	const response = post({
-		route: '/auth/email/forgotpassword/request',
+		route: '/auth/email/password-reset/request',
 		body: jsonData
 	})
-		.then(() => { alert('An password recovery links has been sent to your email') })
+		.then(() => { alert('A password recovery links has been sent to your email') })
 		.catch(handleServerError)
-		.then(() => { navigateRoute('/') })
 })
+
 const formRegister = document.getElementById('register-form')
 formRegister.addEventListener('submit', (event) => {
 	event.preventDefault()
@@ -73,11 +78,11 @@ formRegister.addEventListener('submit', (event) => {
 	for(var i = 0; i < event.target.length - 1; i++) {
 		jsonData[formRegister.elements[i].name] = formRegister.elements[i].value
 	}
+	formRegister.reset()
 	const response = post({
 		route: '/auth/email/register/request',
 		body: jsonData
 	})
 		.then(() => { alert('Thanks for registering! To activate your account continue registration steps in the verification email that has been sent to your address.') })
 		.catch(handleServerError)
-		.then(() => { navigateRoute('/') })
 })

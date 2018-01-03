@@ -88,6 +88,9 @@ class Comment extends HTMLElement {
 				this._loadOldReplies().catch(handleServerError)
 			}
 		})
+		this.elementNotifyOnReply.addEventListener('click', (e) => {
+			this._notifyOnReply().catch(handleServerError)
+		})
 		this.elementReplyToggle.addEventListener('click', (e) => {
 			this.elementReplyToggle.classList.toggle('active')
 			this.elementReplyForm.classList.toggle('hidden')
@@ -390,7 +393,7 @@ class Comment extends HTMLElement {
 			route: '/comments/notify-on-reply',
 			body: {
 				_id: this.commentJSON._id || null,
-				text: this.elementNotifyOnReply.checked
+				notifyOnReply: this.elementNotifyOnReply.checked
 			}
 		})
 	}

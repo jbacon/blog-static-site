@@ -10,7 +10,7 @@
 				<div id='owner-actions' class='hidden'>
 					<span id='text-edit-toggle' class='clickable hidden left' name='Edit' title='Click to edit your comment'>&#9998;</span>
 					<span id='remove-button' class='clickable hidden left' name='Remove' title='Click to remove your comment.'>Remove</span>
-					<span id='notify' class='left clickable' name='Notifications'><label><input id="notify-on-reply-edit" type="checkbox" checked>Notify on Reply</label></span>
+					<span id='notify' class='left clickable' name='Notifications'><label><input id="notify-on-reply-edit" type="checkbox" checked>Notify on Replies?</label></span>
 				</div>
 				<div id='text'></div>
 				<form id='text-edit-form' class='hidden' action=''>
@@ -59,8 +59,7 @@
             </td>
           </tr>
         </table>
-        <input class="notify-on-reply" name="notifyOnReply" type="checkbox" checked/>
-      	<label for="notifyOnReply">Notify on Replies?</label>
+        <label class='clickable'><input class="notify-on-reply" type="checkbox" checked>Notify on Replies?</label>
         <input class="reply-form-submit" type="submit" value='Submit'>
 			</form>
 			<div id='replies-toggle' class='clickable left' name='Replies'>Replies...</div>

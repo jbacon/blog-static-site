@@ -292,8 +292,6 @@ class Comment extends HTMLElement {
 		}
 		if(this.parentElement instanceof Comment)
 			this.elementReplyToggle.click()
-		if(!getToken())
-			await this._silentRegistrationRequest()
 		this.elementReplyForm.reset()
 	}
 	async _remove() {
@@ -304,16 +302,6 @@ class Comment extends HTMLElement {
 			}
 		})
 		this._drawRemoved()
-	}
-	async _silentRegistrationRequest() {
-		const response = await post({
-			route: '/auth/email/silent-registration/request',
-			body: {
-				email: this.elementReplyFormInputEmail.value || null,
-				nameFirst: this.elementReplyFormInputNameFirst.value || null,
-				nameLast: this.elementReplyFormInputNameLast.value || null
-			}
-		})
 	}
 	/* A function that takes a list of comment IDs,
 	and recursively scans all child comments to find the jump comment to set focus to. */

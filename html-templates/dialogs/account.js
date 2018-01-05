@@ -33,7 +33,7 @@ window.addEventListener('logout-event', (e) => {
 	editDetailsFormInputEmail.value = ''
 	editDetailsFormInputNameFirst.value = ''
 	editDetailsFormInputNameLast.value = ''
-	editDetailsFormInputNotifyOnMyCommentReplies.checked = false
+	editDetailsFormInputNotifyOnMyCommentReplies.checked = true
 })
 passwordResetForm.addEventListener('submit', (event) => {
 	event.preventDefault()

@@ -37,17 +37,17 @@ function handleServerError(request) {
 	if((!request instanceof XMLHttpRequest))
 		throw new Error('Not instance of XMLHttpRequest!')
 	if(request.status === 0) {
-		alert('Sorry, something went wrong. No response from server?')
+		alert('Oops! No response from server?')
 	}
 	else if(request.status === 401) {
 		alert('Sign in to perform this action')
 		loadLogin().catch(handleServerError)
 	}
 	else if(request.status === 402) {
-		alert('Sorry, you\'re account is not authorized to perform this action')
+		alert('Oops! You\'re account is not authorized to perform this action')
 	}
 	else {
-		alert('Sorry, something went wrong. Message: '+request.response+'. (STATUS '+request.status+' - '+request.statusText+')')
+		alert('Oops! Smething went wrong. Message: '+request.response+'. '+request.status+' - '+request.statusText)
 	}
 }
 function scaleImgToFillElement(img, element) {

@@ -62,17 +62,6 @@ registerRoute(/^\/auth\/google\/callback#/, async () => {
 	await loginViaGoogle(window.location.hash.slice(1))
 	await navigateRoute('/')
 })
-// Not sure why i need this?
-// registerRoute(/^\/auth\/email\/verifytoken/, (next) => {
-// 	var fragment = window.location.hash.slice(1)
-// 	const dataStringDecoded = decodeURIComponent(fragment)
-// 	const dataJson = JSON.parse(dataStringDecoded)
-// 	(new AuthManager()).loginViaExistingToken({
-// 		access_token: dataJson.token
-// 	}, (e) => {
-// 		router.navigate('/')
-// 	})
-// })
 registerRoute(/^\/auth\/email\/register\/callback#token=(.+)$/, async (token) => {
 	await loginViaRegistrationToken({
 		registration_token: decodeURIComponent(token)

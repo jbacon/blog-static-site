@@ -270,9 +270,9 @@ class Comment extends HTMLElement {
 				entity: this.commentJSON.entity,
 				parent: this.commentJSON._id,
 				text: this.elementReplyFormInputText.value,
-				email: this.elementReplyFormInputEmail.value,
-				nameFirst: this.elementReplyFormInputNameFirst.value,
-				nameLast: this.elementReplyFormInputNameLast.value,
+				email: this.elementReplyFormInputEmail.value || null,
+				nameFirst: this.elementReplyFormInputNameFirst.value || null,
+				nameLast: this.elementReplyFormInputNameLast.value || null,
 				notifyOnReply: this.elementReplyFormInputNotifyOnReply.checked
 			}
 		})
@@ -309,9 +309,9 @@ class Comment extends HTMLElement {
 		const response = await post({
 			route: '/auth/email/silent-registration/request',
 			body: {
-				email: this.elementReplyFormInputEmail.value,
-				nameFirst: this.elementReplyFormInputNameFirst.value,
-				nameLast: this.elementReplyFormInputNameLast.value
+				email: this.elementReplyFormInputEmail.value || null,
+				nameFirst: this.elementReplyFormInputNameFirst.value || null,
+				nameLast: this.elementReplyFormInputNameLast.value || null
 			}
 		})
 	}

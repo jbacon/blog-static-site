@@ -268,11 +268,11 @@ class Comment extends HTMLElement {
 			route: '/comments/create',
 			body: {
 				entity: this.commentJSON.entity,
-				parent: this.commentJSON._id,
+				parent: this.commentJSON._id || undefined,
 				text: this.elementReplyFormInputText.value,
-				email: this.elementReplyFormInputEmail.value || null,
-				nameFirst: this.elementReplyFormInputNameFirst.value || null,
-				nameLast: this.elementReplyFormInputNameLast.value || null,
+				email: this.elementReplyFormInputEmail.value || undefined,
+				nameFirst: this.elementReplyFormInputNameFirst.value || undefined,
+				nameLast: this.elementReplyFormInputNameLast.value || undefined,
 				notifyOnReply: this.elementReplyFormInputNotifyOnReply.checked
 			}
 		})
@@ -298,7 +298,7 @@ class Comment extends HTMLElement {
 		const response = await post({
 			route: '/comments/mark-removed',
 			body: {
-				_id: this.commentJSON._id || null
+				_id: this.commentJSON._id || undefined
 			}
 		})
 		this._drawRemoved()
@@ -337,7 +337,7 @@ class Comment extends HTMLElement {
 		const response = await post({
 			route: '/comments/flag',
 			body: {
-				_id: this.commentJSON._id || null
+				_id: this.commentJSON._id || undefined
 			}
 		})
 		this._drawRemoved()
@@ -347,7 +347,7 @@ class Comment extends HTMLElement {
 		const response = await post({
 			route: '/comments/up-vote',
 			body: {
-				_id: this.commentJSON._id || null
+				_id: this.commentJSON._id || undefined
 			}
 		})
 		this.elementUpVoteCount.textContent = (parseInt(this.elementUpVoteCount.textContent)+1)
@@ -357,7 +357,7 @@ class Comment extends HTMLElement {
 		const response = await post({
 			route: '/comments/down-vote',
 			body: {
-				_id: this.commentJSON._id || null
+				_id: this.commentJSON._id || undefined
 			}
 		})
 		this.elementDownVoteCount.textContent = (parseInt(this.elementDownVoteCount.textContent)+1)
@@ -367,7 +367,7 @@ class Comment extends HTMLElement {
 		const response = await post({
 			route: '/comments/edit',
 			body: {
-				_id: this.commentJSON._id || null,
+				_id: this.commentJSON._id || undefined,
 				text: this.elementEditFormInputText.textContent
 			}
 		})
@@ -380,7 +380,7 @@ class Comment extends HTMLElement {
 		const response = await post({
 			route: '/comments/notify-on-reply',
 			body: {
-				_id: this.commentJSON._id || null,
+				_id: this.commentJSON._id || undefined,
 				notifyOnReply: this.elementNotifyOnReply.checked
 			}
 		})
@@ -470,15 +470,15 @@ class CommentSection {
 		const commentSection = document.getElementById('comment-section') // Find Comment Section Container
 		var rootCommentClass = new Comment({
 			commentJSON: {
-				_id: null,
-				accountID: null,
+				_id: undefined,
+				accountID: undefined,
 				entity: entity,
-				parent: null,
+				parent: undefined,
 				upVoteAccountIDs: [],
 				downVoteAccountIDs: [],
 				removed: false,
 				text: 'Comments',
-				facebookProfileID: null,
+				facebookProfileID: undefined,
 				flags: [],
 				children: [],
 				account: {

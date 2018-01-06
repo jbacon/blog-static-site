@@ -47,7 +47,7 @@ function handleServerError(request) {
 		alert('Oops! You\'re account is not authorized to perform this action')
 	}
 	else {
-		alert('Oops! Smething went wrong. Message: '+request.response+'. '+request.status+' - '+request.statusText)
+		alert('Oops! Smething went wrong. '+request.response+'. '+request.status+' - '+request.statusText)
 	}
 }
 function scaleImgToFillElement(img, element) {

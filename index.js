@@ -8,9 +8,6 @@ import {
 	getToken,
 	getUser }
 	from '/js-modules/myAuth.js'
-import {
-	navigateRoute }
-	from '/js-modules/myRouter.js'
 import { } from '/js-modules/myRoutes.js'
 import {
 	googleAppID,
@@ -31,13 +28,13 @@ export {
 	closeAllDialogs
 }
 
-document.getElementById('user-bar-logout').addEventListener('click', (event) => {
+document.getElementById('user-bar-logout').addEventListener('click', (/*event*/) => {
 	logout().then()
 })
-document.querySelector('#user-bar-connect > *').addEventListener('click', (event) => {
+document.querySelector('#user-bar-connect > *').addEventListener('click', (/*event*/) => {
 	loadLogin().then()
 })
-document.querySelector('#user-bar-account > *').addEventListener('click', (event) => {
+document.querySelector('#user-bar-account > *').addEventListener('click', (/*event*/) => {
 	loadAccount().then()
 })
 if(getToken()) {
@@ -46,10 +43,10 @@ if(getToken()) {
 else {
 	disableLoginFeatures()
 }
-window.addEventListener('login-event', (e) => {
+window.addEventListener('login-event', (/*e*/) => {
 	enableLoginFeatures()
 })
-window.addEventListener('logout-event', (e) => {
+window.addEventListener('logout-event', (/*e*/) => {
 	disableLoginFeatures()
 })
 function enableLoginFeatures() {
@@ -62,7 +59,7 @@ function enableLoginFeatures() {
 	}
 	else if(currentAuthType === '/auth/google/token') {
 		const client = new XMLHttpRequest()
-		client.onload = (e) => {
+		client.onload = (/*e*/) => {
 			if(client.status === 200) {
 				const response = JSON.parse(client.response)
 				document.getElementById('user-bar-profile-pic').firstElementChild.src = response.entry.gphoto$thumbnail.$t
@@ -71,7 +68,7 @@ function enableLoginFeatures() {
 				handleServerError(client)
 			}
 		}
-		client.onerror = (e) => {
+		client.onerror = (/*e*/) => {
 			handleServerError(client)
 		}
 		client.open('GET', 'http://picasaweb.google.com/data/entry/api/user/'+getUser().googleProfileID+'?alt=json')
@@ -127,7 +124,7 @@ async function loadDialog(dialogElementId, url) {
 }
 
 /* Initialization Facebook SDK */
-window.fbAsyncInit = (e) => {
+window.fbAsyncInit = (/*e*/) => {
 	FB.init({
 		appId            : facebookAppID,
 		autoLogAppEvents : true,
@@ -142,10 +139,10 @@ window.fbAsyncInit = (e) => {
 		if(response.status === 'connected') {
 			// console.log('Facebook - Event - auth.login')
 			loginViaFacebook({
-			  	access_token: response.authResponse.accessToken,
-			  	expires_in: response.authResponse.expiresIn
-			  })
-  		.catch(handleServerError)
+				access_token: response.authResponse.accessToken,
+				expires_in: response.authResponse.expiresIn
+			})
+				.catch(handleServerError)
 		}
 	})
 	// Using getLoginStatus to
@@ -153,24 +150,24 @@ window.fbAsyncInit = (e) => {
 		if (response.status === 'connected') {
 			// Logged into your app and Facebook.
 			loginViaFacebook({
-	      	access_token: response.authResponse.accessToken,
-	      	expires_in: response.authResponse.expiresIn
+				access_token: response.authResponse.accessToken,
+				expires_in: response.authResponse.expiresIn
 			})
-  		.catch(handleServerError)
+				.catch(handleServerError)
 		}
 	})
-	window.addEventListener('logout-event', function(e) {
+	window.addEventListener('logout-event', function(/*e*/) {
 		FB.getLoginStatus(function(response) {
-	    if (response.status === 'connected') {
-	    	FB.logout(function(response) {
-				  // user is now logged out
+			if (response.status === 'connected') {
+				FB.logout(function(/*response*/) {
+					// user is now logged out
 				})
-	    }
-	  })
+			}
+		})
 	})
 }
 /* Initialize Google SDK */
-window.googleApiInit = (e) => {
+window.googleApiInit = (/*e*/) => {
 	gapi.load('auth2', () => {
 		gapi.auth2.init({
 			client_id: googleAppID,
@@ -184,11 +181,11 @@ window.googleApiInit = (e) => {
 					access_token: gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token,
 					expires_in: gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse(true).expires_in
 				})
-  			.catch(handleServerError)
+					.catch(handleServerError)
 			}
 		})
 	})
-	window.addEventListener('logout-event', (e) => {
+	window.addEventListener('logout-event', (/*e*/) => {
 		gapi.auth2.getAuthInstance().signOut()
 	})
 }

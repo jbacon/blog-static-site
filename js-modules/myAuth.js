@@ -1,5 +1,4 @@
-import { portfolioApiServerAddress } from '/js-modules/myConfigs.js'
-import { get, post } from '/js-modules/myUtilities.js'
+import { post } from '/js-modules/myUtilities.js'
 
 export {
 	currentAuthType,

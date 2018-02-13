@@ -27,10 +27,10 @@ class Comment extends HTMLElement {
 		}
 		this.elementUpVoteCount.textContent = this.commentJSON.upVoteAccountIDs.length
 		this.elementDownVoteCount.textContent = this.commentJSON.downVoteAccountIDs.length
-		this.elementReplyFormInputOrLoginLink.addEventListener('click', (event) => {
+		this.elementReplyFormInputOrLoginLink.addEventListener('click', (/*event*/) => {
 			loadLogin()
 		})
-		this.elementReplyFormInputOrSignupLink.addEventListener('click', (event) => {
+		this.elementReplyFormInputOrSignupLink.addEventListener('click', (/*event*/) => {
 			loadLogin()
 		})
 		if(parseInt(this.commentJSON.children.length) === 0) {
@@ -70,14 +70,14 @@ class Comment extends HTMLElement {
 			}
 		}
 		this._drawUi()
-		window.addEventListener('login-event', (e) => {
+		window.addEventListener('login-event', (/*e*/) => {
 			this._drawUi()
 		})
-		window.addEventListener('logout-event', (e) => {
+		window.addEventListener('logout-event', (/*e*/) => {
 			this._drawUi()
 		})
 		// Attach Listeners....
-		this.elementRepliesToggle.addEventListener('click', (e) => {
+		this.elementRepliesToggle.addEventListener('click', (/*e*/) => {
 			this.elementRepliesToggle.classList.toggle('active')
 			this.elementRepliesSection.classList.toggle('hidden')
 			// this.elementLoadNewButton.classList.toggle('hidden') // Makes comments look ugly... should be put on a timer or streamed
@@ -88,10 +88,10 @@ class Comment extends HTMLElement {
 				this._loadOldReplies().catch(handleServerError)
 			}
 		})
-		this.elementNotifyOnReply.addEventListener('click', (e) => {
+		this.elementNotifyOnReply.addEventListener('click', (/*e*/) => {
 			this._notifyOnReply().catch(handleServerError)
 		})
-		this.elementReplyToggle.addEventListener('click', (e) => {
+		this.elementReplyToggle.addEventListener('click', (/*e*/) => {
 			this.elementReplyToggle.classList.toggle('active')
 			this.elementReplyForm.classList.toggle('hidden')
 			if(this.elementReplyFormInputText.isEqualNode(document.activeElement)) {
@@ -102,10 +102,10 @@ class Comment extends HTMLElement {
 				this.elementReplyFormInputText.focus()
 			}
 		})
-		this.elementRemoveButton.addEventListener('click', (e) => {
+		this.elementRemoveButton.addEventListener('click', (/*e*/) => {
 			this._remove().catch(handleServerError)
 		})
-		this.elementEditToggle.addEventListener('click', (e) => {
+		this.elementEditToggle.addEventListener('click', (/*e*/) => {
 			this.elementEditToggle.classList.toggle('active')
 			if(this.elementEditForm.classList.contains('hidden')) {
 				this.elementEditFormInputText.textContent = this.elementText.textContent
@@ -122,9 +122,9 @@ class Comment extends HTMLElement {
 		this.elementEditFormSubmit.addEventListener('click', (e) => {
 			e.preventDefault()
 			this._edit()
-			.catch(handleServerError)
+				.catch(handleServerError)
 		})
-		this.elementLinkButton.addEventListener('click', (e) => {
+		this.elementLinkButton.addEventListener('click', (/*e*/) => {
 			document.execCommand('copy', false)
 		})
 		this.elementLinkButton.addEventListener('copy', (e) => {
@@ -135,33 +135,33 @@ class Comment extends HTMLElement {
 					link += this.commentJSON.ancestors.toString()+','+this.commentJSON._id
 				else
 					link += this.commentJSON._id
-		    e.clipboardData.setData("text/plain", link)
-		  }
+				e.clipboardData.setData('text/plain', link)
+			}
 		})
-		this.elementFlagButton.addEventListener('click', (e) => {
+		this.elementFlagButton.addEventListener('click', (/*e*/) => {
 			this._flag().catch(handleServerError)
 		})
-		this.elementUpVoteButton.addEventListener('click', (e) => {
+		this.elementUpVoteButton.addEventListener('click', (/*e*/) => {
 			this._upVote().catch(handleServerError)
 		})
-		this.elementDownVoteButton.addEventListener('click', (e) => {
+		this.elementDownVoteButton.addEventListener('click', (/*e*/) => {
 			this._downVote().catch(handleServerError)
 		})
-		this.elementLoadNewButton.addEventListener('click', (e) => {
+		this.elementLoadNewButton.addEventListener('click', (/*e*/) => {
 			this._loadNewReplies().catch(handleServerError)
 		})
-		this.elementLoadOldButton.addEventListener('click', (e) => {
+		this.elementLoadOldButton.addEventListener('click', (/*e*/) => {
 			this._loadOldReplies().catch(handleServerError)
 		})
 		this.elementReplyForm.addEventListener('submit', (e) => {
 			e.preventDefault()
 			this._create()
-			.catch(handleServerError)
+				.catch(handleServerError)
 		})
 	}
 	static get observedAttributes() { return [ ] }
 	// Respond to attribute changes...
-	attributeChangedCallback(attr, oldValue, newValue, namespace) {
+	attributeChangedCallback(/*attr, oldValue, newValue, namespace*/) {
 	}
 	disconnectedCallback() {
 		// super.disconnectedCallback()
@@ -264,7 +264,7 @@ class Comment extends HTMLElement {
 		}
 	}
 	async _create() {
-		const response = await post({
+		await post({
 			route: '/comments/create',
 			body: {
 				entity: this.commentJSON.entity,
@@ -295,7 +295,7 @@ class Comment extends HTMLElement {
 		this.elementReplyForm.reset()
 	}
 	async _remove() {
-		const response = await post({
+		await post({
 			route: '/comments/mark-removed',
 			body: {
 				_id: this.commentJSON._id || undefined
@@ -308,7 +308,7 @@ class Comment extends HTMLElement {
 	async _jumpToComment(commentAncestors) {
 		// This is the focus comment!
 		if(commentAncestors.length === 1 && this.commentJSON._id === commentAncestors[0]) {
-			this.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"})
+			this.scrollIntoView({behavior: 'smooth', block: 'end', inline: 'nearest'})
 			return true
 		}
 		// This comment is an ancestors of the focus comment!
@@ -334,7 +334,7 @@ class Comment extends HTMLElement {
 		return false
 	}
 	async _flag() {
-		const response = await post({
+		await post({
 			route: '/comments/flag',
 			body: {
 				_id: this.commentJSON._id || undefined
@@ -344,7 +344,7 @@ class Comment extends HTMLElement {
 		this.elementFlagButton.classList.add('disabled')
 	}
 	async _upVote() {
-		const response = await post({
+		await post({
 			route: '/comments/up-vote',
 			body: {
 				_id: this.commentJSON._id || undefined
@@ -354,7 +354,7 @@ class Comment extends HTMLElement {
 		this.elementUpVoteButton.classList.add('disabled')
 	}
 	async _downVote() {
-		const response = await post({
+		await post({
 			route: '/comments/down-vote',
 			body: {
 				_id: this.commentJSON._id || undefined
@@ -364,7 +364,7 @@ class Comment extends HTMLElement {
 		this.elementDownVoteButton.classList.add('disabled')
 	}
 	async _edit() {
-		const response = await post({
+		await post({
 			route: '/comments/edit',
 			body: {
 				_id: this.commentJSON._id || undefined,
@@ -377,7 +377,7 @@ class Comment extends HTMLElement {
 		this.elementEditDate.classList.remove('hidden')
 	}
 	async _notifyOnReply() {
-		const response = await post({
+		await post({
 			route: '/comments/notify-on-reply',
 			body: {
 				_id: this.commentJSON._id || undefined,
@@ -515,7 +515,7 @@ class CommentSection {
 				// Jump to the associated comment
 				if(window.location.search) {
 					let params = new URLSearchParams(window.location.search.substring(1)) // substring(1) to drop the leading "?"
-					let commentJump = params.get("comment-jump")
+					let commentJump = params.get('comment-jump')
 					let commentAncestors = commentJump.split(',')
 					rootCommentClass._jumpToComment(commentAncestors)
 						.catch(handleServerError)

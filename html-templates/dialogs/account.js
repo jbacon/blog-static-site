@@ -1,20 +1,17 @@
 import {
 	getUser,
-	currentAuthType,
 	getToken } from '/js-modules/myAuth.js'
 import {
 	handleServerError,
-	get,
 	post
 } from '/js-modules/myUtilities.js'
-import { portfolioApiServerAddress } from '/js-modules/myConfigs.js'
 
 const editDetailsForm = document.getElementById('edit-details-form')
 const editDetailsFormInputEmail = editDetailsForm.querySelector('.email')
 const editDetailsFormInputNameFirst = editDetailsForm.querySelector('.name-first')
 const editDetailsFormInputNameLast = editDetailsForm.querySelector('.name-last')
 const editDetailsFormInputNotifyOnMyCommentReplies = editDetailsForm.querySelector('.notify-on-my-comment-replies')
-const editDetailsFormInputSubmit = editDetailsForm.querySelector('.submit')
+// const editDetailsFormInputSubmit = editDetailsForm.querySelector('.submit')
 const passwordResetForm = document.getElementById('password-reset-form')
 
 var initUser = () => {
@@ -26,10 +23,10 @@ var initUser = () => {
 if(getToken()) {
 	initUser()
 }
-window.addEventListener('login-event', (e) => {
+window.addEventListener('login-event', (/*e*/) => {
 	initUser()
 })
-window.addEventListener('logout-event', (e) => {
+window.addEventListener('logout-event', (/*e*/) => {
 	editDetailsFormInputEmail.value = ''
 	editDetailsFormInputNameFirst.value = ''
 	editDetailsFormInputNameLast.value = ''
@@ -49,8 +46,8 @@ passwordResetForm.addEventListener('submit', (event) => {
 				newPassword: newPassword
 			}
 		})
-	.then((response) => { alert('Password reset! Logout to apply changes') })
-	.catch(handleServerError)
+			.then((/*response*/) => { alert('Password reset! Logout to apply changes') })
+			.catch(handleServerError)
 	}
 	else {
 		alert('Passwords mismatched. Try retyping password fields.')
@@ -67,8 +64,8 @@ editDetailsForm.addEventListener('submit', (event) => {
 			notifyOnMyCommentReplies: editDetailsFormInputNotifyOnMyCommentReplies.checked
 		}
 	})
-	.then((response) => {
-		alert('Success! Logout to apply changes')
-	})
-	.catch(handleServerError)
+		.then((/*response*/) => {
+			alert('Success! Logout to apply changes')
+		})
+		.catch(handleServerError)
 })

@@ -20,7 +20,7 @@ async function importHtml(href) {
 			link.rel = 'import'
 			link.href = href
 			link.setAttribute('async', '')
-			link.onload = (result) => {
+			link.onload = (/*result*/) => {
 				resolve(link.import)
 			}
 			link.onerror = (err) => {
@@ -34,7 +34,7 @@ async function importHtml(href) {
 // 	console.log(error)
 // }
 function handleServerError(request) {
-	if((!request instanceof XMLHttpRequest))
+	if((!(request instanceof XMLHttpRequest)))
 		throw new Error('Not instance of XMLHttpRequest!')
 	if(request.status === 0) {
 		alert('Oops! No response from server?')
@@ -64,7 +64,7 @@ async function post({ route=(()=>{throw new Error('Missing parameter')})(), body
 		request.open('POST', portfolioApiServerAddress+route)
 		request.setRequestHeader('Authorization', 'Bearer '+getToken())
 		request.setRequestHeader('Content-Type', 'application/json')
-		request.onload = (event) => {
+		request.onload = (/*event*/) => {
 			if(request.status === 200) {
 				resolve(JSON.parse(request.response))
 			}
@@ -72,7 +72,7 @@ async function post({ route=(()=>{throw new Error('Missing parameter')})(), body
 				reject(request)
 			}
 		}
-		request.onerror = (event) => {
+		request.onerror = (/*event*/) => {
 			reject(request)
 		}
 		request.send(JSON.stringify(body))
@@ -85,7 +85,7 @@ async function get({ route=(()=>{throw new Error('Missing parameter')})() }) {
 		request.open('GET', portfolioApiServerAddress+route)
 		request.setRequestHeader('Authorization', 'Bearer '+getToken())
 		request.setRequestHeader('Content-Type', 'application/json')
-		request.onload = (event) => {
+		request.onload = (/*event*/) => {
 			if(request.status === 200) {
 				resolve(JSON.parse(request.response))
 			}
@@ -93,7 +93,7 @@ async function get({ route=(()=>{throw new Error('Missing parameter')})() }) {
 				reject(request)
 			}
 		}
-		request.onerror = (event) => {
+		request.onerror = (/*event*/) => {
 			reject(request)
 		}
 		request.send()

@@ -9,7 +9,7 @@ class MyDialogButtonComponent extends HTMLElement {
 	}
 	static get observedAttributes() { return [ 'opened' ] }
 	// Respond to attribute changes...
-	attributeChangedCallback(name, oldValue, newValue, namespace) {
+	attributeChangedCallback(name/*, oldValue, newValue, namespace*/) {
 		// super.attributeChangedCallback(attr, oldValue, newValue, namespace);
 		if(name === 'opened') {
 			const dialog = this.shadowRoot.getElementById('dialog')
@@ -89,13 +89,13 @@ class MyDialogButtonComponent extends HTMLElement {
 		}
 		</style>
 		`
-		const content = component.shadowRoot.getElementById('content')
+		// const content = component.shadowRoot.getElementById('content')
 		const close = component.shadowRoot.getElementById('close')
 		const open = component.shadowRoot.getElementById('open')
-		open.addEventListener('click', function(event) {
+		open.addEventListener('click', function(/*event*/) {
 			component.opened = true
 		})
-		close.addEventListener('click', function(event) {
+		close.addEventListener('click', function(/*event*/) {
 			component.opened = false
 		})
 	}

@@ -17,6 +17,6 @@ async function loadArticle(year, month, day, articleName) {
 	const newArticleSection = articleSectionOld.cloneNode(false) // Clone but without the children...
 	newArticleSection.appendChild(document.importNode(linkImport.querySelector('template').content, true))
 	articleSectionOld.replaceWith(newArticleSection)
-	const linkImportComments = await importHtml('/html-templates/general/comment.html')
+	await importHtml('/html-templates/general/comment.html')
 	new CommentSection({ entity: '/articles/'+year+'/'+month+'/'+day+'/'+articleName+'.html' })
 }

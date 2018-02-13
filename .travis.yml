@@ -1,0 +1,51 @@
+language: bash
+sudo: required
+dist: trusty
+services:
+  - docker
+git:
+  depth: 1
+  submodules: false
+branches:
+  only:
+  - master
+# cache:
+#   directories:
+#     - "node_modules"
+env:
+  global:
+    # AWS_ACCESS_KEY_ID
+    - secure: "S0MIsXFqqv308zsrUyiTUOc+LDNbW0a/0PY6RdZQakkE376V/n7E+jIZmdHAdhY8oWkpav+bd+OPVRSlHr7AvOsXDaRpOzZbn24a8JXvilbROSRe0/ObtrRTL7XM77yBSZqF2ydcfXYTOtPsxCOV1f130wuacTVrMUZGKYAM0c+POh/wF3wEay/eUQ60nA68S5oakju1VxfY4u/eAUZ8uTzVlp7nctR0/51aq74F559CIj7Lqt4eu0Vh3vVm9omei6EWRwlhyClvOXZy21Wrk3xeuewjBMefR474IBol2WxTIwHjgj+lW4cv//kHCDu473ZsRVP37wdzyvxIG0SK9jK/m/YB2YWQwdCDx8tg3eOQIcmPbvf8/6avKzVEKMq9X7rlsr81PVhDXMhHRRG6DIedMcvWGrByz2VH8YrPvIYrbN5pu02P1VmwXkYb8jzcRl47xCoFwb3vIAkXYZLJHCgM3CyuIYHJwM2qOt5XAuUCUzCo00L1wqnQlrZhHukgyC/YRtyGBpY4VHPXE1bcHvVwR9iCAVzFLGqGqxNG+KOAi/JoUsblPhC80xgu5OU39PCeZpELQ/2GIFLDkFeMisOsGKq2fwqhaFqAsljhU3zVNZ5hqaDXniVnBI97d3bNgu1ES/wRB8R2VZyGC4EC4NR0Nxdvljt2TUHw1ZD3Cow="
+    # AWS_SECRET_ACCESS_KEY
+    - secure: "eK7yLubDryGbVlTooIOLgVtwyHEqwNXCN98N362YZwoRIncybadAcc0Om+sUgjnE0fMKHPTaDRldeTncfoOzgfnks7h1Md93mkPgk0YmICoM6U0aUwq+V7UPl16DbWegE0vvBQXWtyi9OU9veTxLsANBq4rjU13GC00joSlBJw3kIGb0himcteZdT1t+cQIFEg3OIzna8VKAMBZLr6KKwpzuo7ZzxR2LJUe5dOzPduLl1cE8+mGCmI9HWf0nDIyPyrh+po6OdbVC/8We0GxQEJISeKi1R6D273isX/RMsv7QS13EVpe0XTYTMMtwrKfXZFWeXL0pQPS1SztPip9qha1akkLT29okd/fqobRKygnQwlQ5S+n2J1Pkmxlf0fRWMsdAL9zyk5/qVjBWrda3pZGenYTs8M6XFk2put4u4BZb2UwVH8GyqnCLyfK2wcXQRf5nFU5uuFL3Cdl2ueV2//e+tULRAi89Ff5yHOukraeRriK7ruSpmkLA5MlpRWYkl1ui1vAeqxQoCoPlOYsQLTQr22w7EI6AWnANuewt3fGi8Xv4d91EGsEOvMHlHFr7M9jvJg0vsXhQvYutJSKHkZals6ZqKpcLKQOvS3TDOp3uPZfqcJFXnYlNkiLMfq3qWRrzCvID7X75SWi7jchF2YsrkLQXifxWE9KwV/F+f/Y="
+    # include $HOME/.local/bin for `aws`
+    - PATH=$HOME/.local/bin:$PATH
+before_install:
+  - docker pull node:9.3.0-alpine
+  # set up awscli packages
+  - pip install --user awscli
+install:
+  - docker run --rm --workdir /home/node/app/ --volume ${TRAVIS_BUILD_DIR}/:/home/node/app/ node:9.3.0-alpine npm install eslint
+# before_script:
+#   - echo "Before Script..."
+script:
+  - docker run --rm --workdir /home/node/app/ --volume ${TRAVIS_BUILD_DIR}/:/home/node/app/ node:9.3.0-alpine ./node_modules/.bin/eslint ./
+# before_cache:
+#   - echo "Before Cache..."
+# after_success:
+#   - echo "After Success..."
+# after_failure:
+#   - echo "After Failure..."
+before_deploy:
+  - aws s3 sync --dryrun --delete --exact-timestamps --exclude ".git*" --exclude "node_modules*" . s3://portfolio.joshbacon.name
+deploy:
+  provider: script
+  script: aws s3 sync --delete --exact-timestamps --exclude ".git*" --exclude "node_modules*" . s3://portfolio.joshbacon.name
+  # script: sh deploy.sh
+  on:
+    branch: master
+  skip_cleanup: true
+after_deploy:
+  - aws --profile personal cloudfront create-invalidation --distribution-id='E2DH15J9LGHZU1' --paths='/*'
+# after_script:
+#   - echo "After Script..."

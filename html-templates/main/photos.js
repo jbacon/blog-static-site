@@ -7,7 +7,7 @@ async function initializePhotos() {
 	const previewViewport = document.querySelector('my-carousel')
 	for(let i=0; i < previewImages.length; i++) {
 		if(previewImages[i].naturalHeight === 0) {
-			previewImages[i].onload = (e) => {
+			previewImages[i].onload = (/*e*/) => {
 				scaleImgToFillElement(previewImages[i], previewViewport)
 			}
 		}
@@ -19,7 +19,7 @@ async function initializePhotos() {
 	const fullscreenViewport = document.querySelector('body')
 	for(let i=0; i < fullscreenImages.length; i++) {
 		if(fullscreenImages[i].naturalHeight === 0) {
-			fullscreenImages[i].onload = (e) => {
+			fullscreenImages[i].onload = (/*e*/) => {
 				scaleImgToFillElement(fullscreenImages[i], fullscreenViewport)
 			}
 		}

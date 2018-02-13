@@ -3,12 +3,9 @@ import {
 	googleLoginFailed } from '/index.js'
 import {
 	handleServerError,
-	post,
-	get
+	post
 } from '/js-modules/myUtilities.js'
-import { navigateRoute } from '/js-modules/myRouter.js'
 import { loginViaCredentials } from '/js-modules/myAuth.js'
-import { portfolioApiServerAddress } from '/js-modules/myConfigs.js'
 
 var renderFacebookLogin = () => {
 	FB.XFBML.parse()
@@ -16,15 +13,15 @@ var renderFacebookLogin = () => {
 
 if(typeof FB !== 'undefined' && window.fbAsyncInit.hasRun) { // FB loaded already
 	// Ensures
-	FB.getLoginStatus(function(response) {
-  	renderFacebookLogin()
+	FB.getLoginStatus(function(/*response*/) {
+		renderFacebookLogin()
 	})
 }
 else { // FB not loaded, add load listener
-	window.addEventListener('facebook-api-init', (e) => { renderFacebookLogin })
+	window.addEventListener('facebook-api-init', (/*e*/) => { renderFacebookLogin })
 }
 var renderGoogleLogin = () => {
-	gapi.load('signin2', (e) => {
+	gapi.load('signin2', (/*e*/) => {
 		gapi.signin2.render('google-login-button', {
 			'scope': 'profile email',
 			'width': 240,
@@ -40,7 +37,7 @@ if(typeof gapi !== 'undefined') { // GoogleAPI loaded
 	renderGoogleLogin()
 }
 else { // Register gapi load event listener
-	window.addEventListener('google-api-init', (e) => { renderGoogleLogin() })
+	window.addEventListener('google-api-init', (/*e*/) => { renderGoogleLogin() })
 }
 const formLoginLocal = document.getElementById('login-form-local')
 // const formLoginFacebook     = document.getElementById('login-form-facebook')
@@ -53,7 +50,7 @@ formLoginLocal.addEventListener('submit', (event) => {
 		email: email,
 		password: password
 	})
-  	.catch(handleServerError)
+		.catch(handleServerError)
 })
 const formForgotPassword = document.getElementById('forgot-password-form')
 formForgotPassword.addEventListener('submit', (event) => {
@@ -63,7 +60,7 @@ formForgotPassword.addEventListener('submit', (event) => {
 		jsonData[formForgotPassword.elements[i].name] = formForgotPassword.elements[i].value
 	}
 	formForgotPassword.reset()
-	const response = post({
+	post({
 		route: '/auth/email/password-reset/request',
 		body: jsonData
 	})
@@ -79,7 +76,7 @@ formRegister.addEventListener('submit', (event) => {
 		jsonData[formRegister.elements[i].name] = formRegister.elements[i].value
 	}
 	formRegister.reset()
-	const response = post({
+	post({
 		route: '/auth/email/register/request',
 		body: jsonData
 	})

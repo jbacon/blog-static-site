@@ -8,11 +8,8 @@ import {
 	loginViaGoogle,
 	loginViaRegistrationToken } from '/js-modules/myAuth.js'
 import {
-	handleServerError,
-	get,
-	post
+	handleServerError
 } from '/js-modules/myUtilities.js'
-import { portfolioApiServerAddress } from '/js-modules/myConfigs.js'
 import {
 	loadMain,
 	loadLogin,
@@ -69,17 +66,17 @@ registerRoute(/^\/auth\/email\/register\/callback#token=(.+)$/, async (token) =>
 	alert('Account registration completed! Welcome!')
 	await navigateRoute('/')
 })
-registerRoute(/^\/auth\/email\/silent-registration\/callback#token=(.+)$/, async (token) => {
+registerRoute(/^\/auth\/email\/silent-registration\/callback#token=(.+)$/, async (/*token*/) => {
 	await loadSetPassword()
 })
-registerRoute(/^\/auth\/email\/password-reset\/callback#token=(.+)$/, async (token) => {
+registerRoute(/^\/auth\/email\/password-reset\/callback#token=(.+)$/, async (/*token*/) => {
 	await loadSetPassword()
 })
-registerRoute(/\?([^#]+)/, async (queryString) => {
+registerRoute(/\?([^#]+)/, async (/*queryString*/) => {
 
 })
-registerRoute(/#(.+)$/, async (fragment) => {
+registerRoute(/#(.+)$/, async (/*fragment*/) => {
 
 })
 executeRoute(window.location.pathname+window.location.search+window.location.hash)
-.catch(handleServerError)
+	.catch(handleServerError)

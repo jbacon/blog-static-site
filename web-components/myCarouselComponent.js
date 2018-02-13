@@ -152,7 +152,7 @@ class MyCarouselComponent extends HTMLElement {
 				newNumber.classList.add('current-number')
 			}
 		}
-		var initSlides = (e) => {
+		var initSlides = (/*e*/) => {
 			const slides = slidesSlot.assignedNodes()
 			if(slides.length > 0) {
 				var numberingHTML = ''

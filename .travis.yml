@@ -9,9 +9,6 @@ git:
 branches:
   only:
   - master
-# cache:
-#   directories:
-#     - "node_modules"
 env:
   global:
     # AWS_ACCESS_KEY_ID

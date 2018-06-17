@@ -1,9 +1,11 @@
-# Blog Website Static Content
+[![Build Status](https://travis-ci.org/jbacon/blog-static-site.svg?branch=master)](https://travis-ci.org/jbacon/blog-static-site.svg?branch=master)
 
-My Blog's public static site files. 
-Built entirely as a Single Page Application by altering S3's redirect policy (using some trickery). 
-No static site generators were used for these files. 
-S3 Static Site Bucket w/ CloudFornt is my current server of choice. 
-For development, `docker-compose.yaml` launches a local nginx reverse proxy server instead. 
+# Blog Website Static Content: [https://portfolio.joshbacon.name](http://portfolio.joshbacon.name)
 
-[https://portfolio.joshbacon.name](http://portfolio.joshbacon.name)
+## Technical Features:
+- Pure Single Page Application (SPA)
+- Pure Static Content
+- No Server-Side Rendering
+- No Static Site Generators
+- Hosted on S3+CloudFront via tricky redirect policy
+- Local Development uses `docker-compose.yaml` w/ nginx reverse proxy.

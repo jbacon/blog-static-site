@@ -50,7 +50,9 @@ class MyCarouselComponent extends HTMLElement {
 		:host {
 			display: block;
 			position: absolute;
-			overflow: hidden;
+			// overflow: hidden;
+			overflow-x: hidden;
+			overflow-y: scroll;
 			width: 100%;
 			height: 100%;
 		}
@@ -62,11 +64,12 @@ class MyCarouselComponent extends HTMLElement {
 			z-index: 1;
 		}
 		#controls {
-			position: absolute;
-			left: calc(50% - 100px);
-			height: 30px;
-			width: 200px;
-			overflow: hidden;
+			text-align: center;
+			// position: absolute;
+			// left: calc(50% - 100px);
+			// height: 30px;
+			// width: 200px;
+			overflow: scroll;
 			z-index: 2;
 		}
 		.control {
@@ -74,6 +77,7 @@ class MyCarouselComponent extends HTMLElement {
 			cursor: pointer;
 			vertical-align: middle;
 			text-align: center;
+			display: inline;
 		}
 		.control:hover {
 			color: red;
@@ -102,8 +106,9 @@ class MyCarouselComponent extends HTMLElement {
 			text-align: center;
 		}
 		.hidden {
-			overflow: hidden !important;
-			width: 0px !important;
+			display: none;
+			// overflow: hidden !important;
+			// width: 0px !important;
 		}
 		</style>
 		`
@@ -129,7 +134,7 @@ class MyCarouselComponent extends HTMLElement {
 					newSlide = slidesSlot.assignedNodes()[newIndex]
 				}
 				newSlide.classList.add('current')
-				if(this._currentSlide) 
+				if(this._currentSlide)
 					this._currentSlide.classList.remove('current')
 				this._currentSlide = newSlide
 				this._currentSlideIndex = newIndex
@@ -157,7 +162,7 @@ class MyCarouselComponent extends HTMLElement {
 			if(slides.length > 0) {
 				var numberingHTML = ''
 				for(var i=0; i < slides.length; i++) {
-					numberingHTML += '<span class=\'number number'+(i+1)+' control\'>'+(i+1)+'</span>'
+					numberingHTML += '<span class=\'number number'+(i+1)+' control\'>'+(i+1)+' </span>'
 				}
 				numbering.innerHTML = numberingHTML
 				const numbers = component.shadowRoot.querySelectorAll('.number')

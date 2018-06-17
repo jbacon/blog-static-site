@@ -2,7 +2,6 @@ language: bash
 sudo: required
 dist: trusty
 services:
-  - docker
 git:
   depth: 1
   submodules: false
@@ -11,38 +10,69 @@ branches:
   - master
 env:
   global:
-    # AWS_ACCESS_KEY_ID
-    - secure: "tLzQThmBRF6fVU4zOSLqVry5mMM8P/zYObb4ks0qBzJf2fTsDWzivbZ0hnY4nqQDWCF/8rOKz5qdEfRhAU60uMpiI/u+5IhkbHoLU5ya+2ndeE0Qi13fZ1Sh9N82BeuVtiw+Zx4DqfXNhBQ4ElEeZCgcwIoZpPqLwfwvWlJ4FgU5ERF9d93dECBWp5F7QZUCy6MI9JYIs8FjvSeV/s4wI0tk8pu098TH5uvio7PnHwjbTyw7ZHdaWceb52NNa7oq4aZu4fnWis9ehPxLnS5CK7kxdXd3mBBQ8KZGJYqudYANsopx4rQiz+Ian8MUodDb3mEnaUKM4XeZH4OtLDEKBQ7vkgEjkZ/kvGazXvlCWHATkpt+auzVf9Gv61wNKkMVE5ma79epELfrBiNY4D1DW3vnI7xJUn6Tu1H5jb3FCQFG2hXFViJprAa91xh3zNtr5Mi05GH9qfehN6p18WadnFREgEkob7VpNEZseyKAruHZbj8MACjtz/OHsAZWhuCBtXzI1/uv6mO4tvR0rqYJ2zAuBlu5oU8pPF3rGIu7zAx/Wps/t7SqrEqz3y97MxEyeyPN6lFDNAj/TTLSXnAga9AMhQYCOqYfnrcNkl93Il3GhmbrSQgl2bFSF494H2nsl5D3BGxiG0If8NzJ4knZ1vZs5TTkdvs06864w1wCp3k="
-    # AWS_SECRET_ACCESS_KEY
-    - secure: "AYyVqAh0LL716Lm4xSKdmvGpwXlQ4WIPPFKoQzSFimnXodseEUhMozK3u47hdieXOJlN2VaSI6Wyq5nXI/F2PPPT0oUsogrpqCZOolOj3LzOVQ0Y6Hi7VcOrA9dAuQWtBWpSZgBdbLsZrbwr95mdNgBUlCCz86JFMmTK68AOVESXIU87QNmUMqqbz1WOLnHMI7/+fSItdgN/1HU0xQxKp/Z7Np5iiISD/9UQXfJuziFvGQu/fuZEnlaXv5pyR0y3r4ZYaKkmFkVTTP5+ukB+edeAwX44P9F9s0H02cVYu3FoU44bHcEyTH17gMj+nRULvZ9F3r916HOh5hotGsDtO4/9xp3apkNkzTDIvIikeux4j8Rl3iTnld8KFG571/N/GO8A2x5tjNB1HDVxQsTgK+PrC85xDI992bEJUyPqArYeF5T7q9ijsLUKRbrIkFXXMEhFp6WuTFgd+wW39FWgrjK5dHKB/TBgbhEUHHbUMJH4rar6ol7QsWInNU2be1Zvis+KLFAGPZLTgfJJ2YDOYCOd4/X7dk7Kzm/Zl5wTslBR2BQF9YS7QqE+BAhyOqhHqu5hGvLdKST/r+Khsa96SQ1OiAW1RPa1njpQ0M/feZ0JB3K+h2Y4pZkCUBzDMW1+owDBxOemVzLtBo5ReljBwFYasgqtJGaej3N9VlsgPrM="
     # include $HOME/.local/bin for `aws`
     - PATH=$HOME/.local/bin:$PATH
 before_install:
-  - docker pull node:9.3.0-alpine
-  # set up awscli packages
   - pip install --user awscli
 install:
-  - docker run --rm --workdir /home/node/app/ --volume ${TRAVIS_BUILD_DIR}/:/home/node/app/ node:9.3.0-alpine npm install eslint
-# before_script:
-#   - echo "Before Script..."
+  - bash scripts/install.sh
+before_script:
+  - bash scripts/lint.sh
 script:
-  - docker run --rm --workdir /home/node/app/ --volume ${TRAVIS_BUILD_DIR}/:/home/node/app/ node:9.3.0-alpine ./node_modules/.bin/eslint ./
-# before_cache:
-#   - echo "Before Cache..."
-# after_success:
-#   - echo "After Success..."
-# after_failure:
-#   - echo "After Failure..."
+  - bash scripts/test.sh
+after_script:
+  - echo "After Script..."
+before_cache:
+  - echo "Before Cache..."
+after_success:
+  - echo "After Success..."
+after_failure:
+  - echo "After Failure..."
 before_deploy:
-  - aws s3 sync --dryrun --delete --exact-timestamps --exclude ".git*" --exclude "node_modules*" . s3://portfolio.joshbacon.name
+  - echo "Before Deploy..."
+  - echo -n ${K8S_CA_CERT} | base64 --decode > ${HOME}/ca.cert
+  - curl -LO https://storage.googleapis.com/kubernetes-release/release/${K8S_VERSION}/bin/linux/amd64/kubectl
+  - chmod +x ./kubectl
+  - sudo mv ./kubectl /usr/local/bin/kubectl
+  - |
+    kubectl config set-cluster cluster \
+    --certificate-authority=${HOME}/ca.cert \
+    --server=${K8S_SERVER} \
+    --embed-certs
+  - |
+    kubectl config set-credentials user \
+    --token=$(echo -n ${K8S_TOKEN} | base64 --decode)
+  - |
+    kubectl config set-context context \
+    --cluster='cluster' \
+    --user='user' \
+    --namespace=${K8S_NAMESPACE}
+  - kubectl config use-context context
+  - curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get > ${HOME}/get_helm.sh
+  - chmod 700 ${HOME}/get_helm.sh
+  - source ${HOME}/get_helm.sh  --version ${HELM_VERSION}
+  - helm init --client-only
 deploy:
   provider: script
-  script: aws s3 sync --delete --exact-timestamps --exclude ".git*" --exclude "node_modules*" . s3://portfolio.joshbacon.name
-  # script: sh deploy.sh
+  script: aws s3 sync --delete --exclude '.git/*' --exclude 'node_modules/*' ${PWD}/ s3://portfolio.joshbacon.name
   on:
     branch: master
   skip_cleanup: true
 after_deploy:
-  - aws cloudfront create-invalidation --distribution-id='E2DH15J9LGHZU1' --paths='/*'
-# after_script:
-#   - echo "After Script..."
+  - aws cloudfront create-invalidation --distribution-id="${AWS_CLOUDFRONT_DISTRIBUTION_ID}" --paths='/*'
+  - git clone https://github.com/jbacon/lets-encrypt-k8s-cert-renewer.git
+  - |
+    helm template \
+    --kube-version=$(echo -n ${K8S_VERSION}| cut -c2-) \
+    --namespace="${K8S_NAMESPACE}" \
+    --name='portfolio-joshbacon-name-cert-renewer' \
+    --set='domains={portfolio.joshbacon.name}' \
+    --set='email=jbacon@zagmail.gonzaga.edu' \
+    --set="certSecret=${CERT_SECRET}" \
+    --set="hookConfigs.awsS3.certManagerCertificateArn=${AWS_ACM_CERT_ARN}" \
+    --set="hookConfigs.awsS3.accessKeyId.secret.name=${AWS_KEYS_SECRET}" \
+    --set="hookConfigs.awsS3.accessKeyId.secret.key=aws_access_key_id" \
+    --set="hookConfigs.awsS3.secretAccessKey.secret.name=${AWS_KEYS_SECRET}" \
+    --set="hookConfigs.awsS3.secretAccessKey.secret.key=aws_secret_access_key" \
+    --set="hookConfigs.awsS3.region=${AWS_DEFAULT_REGION}" \
+    ${PWD}/lets-encrypt-k8s-cert-renewer/ | kubectl apply -f -

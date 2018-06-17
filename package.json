@@ -1,0 +1,16 @@
+{
+  "name": "StaticSite",
+  "version": "1.0.0",
+  "author": "Josh Bacon",
+  "description": "Static site files for Josh Bacon's Portfolio SPA web app.",
+  "main": "./bin/www",
+  "scripts": {
+    "lint": "./node_modules/.bin/eslint ./",
+    "test": "echo 'pass'"
+  },
+  "license": "ISC",
+  "dependencies": {},
+  "devDependencies": {
+    "eslint": "latest"
+  }
+}

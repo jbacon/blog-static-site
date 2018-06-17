@@ -129,7 +129,7 @@ window.fbAsyncInit = (/*e*/) => {
 		appId            : facebookAppID,
 		autoLogAppEvents : true,
 		xfbml            : true,
-		version          : 'v2.11',
+		version          : 'v3.0',
 		cookie           : true
 	})
 	window.dispatchEvent(new Event('facebook-api-init'))

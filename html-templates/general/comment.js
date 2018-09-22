@@ -42,7 +42,7 @@ class Comment extends HTMLElement {
 				this.elementName.textContent = (this.commentJSON.account.nameFirst+' '+this.commentJSON.account.nameLast).toUpperCase()
 				if(this.commentJSON.account.facebookProfileID) {
 					// COMMENT FROM USER VIA FACEBOOK
-					this.elementProfilePic.src = 'http://graph.facebook.com/'+this.commentJSON.account.facebookProfileID+'/picture?type=large'
+					this.elementProfilePic.src = 'https://graph.facebook.com/'+this.commentJSON.account.facebookProfileID+'/picture?type=large'
 				}
 				else if(this.commentJSON.account.googleProfileID) {
 					// COMMENT FROM USER VIA GOOGLE
@@ -55,7 +55,7 @@ class Comment extends HTMLElement {
 					}
 					request.onerror = () => {
 					}
-					request.open('GET', 'http://picasaweb.google.com/data/entry/api/user/'+this.commentJSON.account.googleProfileID+'?alt=json')
+					request.open('GET', 'https://picasaweb.google.com/data/entry/api/user/'+this.commentJSON.account.googleProfileID+'?alt=json')
 					request.send()
 				}
 				else {

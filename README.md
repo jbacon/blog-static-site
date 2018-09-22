@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/jbacon/blog-static-site.svg?branch=master)](https://travis-ci.org/jbacon/blog-static-site.svg?branch=master)
 
-# Blog Website Static Content: [https://portfolio.joshbacon.name](http://portfolio.joshbacon.name)
+# Blog Website Static Content: https://portfolio.joshbacon.name
 
 ## Technical Features:
 - Pure Single Page Application (SPA)

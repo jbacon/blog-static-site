@@ -55,7 +55,7 @@ function enableLoginFeatures() {
 	document.getElementById('user-bar-connect').classList.add('hidden')
 	document.getElementById('user-bar-profile-pic').classList.remove('hidden')
 	if(currentAuthType === '/auth/facebook/token') {
-		document.getElementById('user-bar-profile-pic').firstElementChild.src = 'http://graph.facebook.com/'+getUser().facebookProfileID+'/picture?type=large'
+		document.getElementById('user-bar-profile-pic').firstElementChild.src = 'https://graph.facebook.com/'+getUser().facebookProfileID+'/picture?type=large'
 	}
 	else if(currentAuthType === '/auth/google/token') {
 		const client = new XMLHttpRequest()
@@ -71,7 +71,7 @@ function enableLoginFeatures() {
 		client.onerror = (/*e*/) => {
 			handleServerError(client)
 		}
-		client.open('GET', 'http://picasaweb.google.com/data/entry/api/user/'+getUser().googleProfileID+'?alt=json')
+		client.open('GET', 'https://picasaweb.google.com/data/entry/api/user/'+getUser().googleProfileID+'?alt=json')
 		client.send()
 	}
 	else {

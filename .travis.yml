@@ -69,8 +69,8 @@ after_deploy:
     --set='domains={portfolio.joshbacon.name}' \
     --set='email=jbacon@zagmail.gonzaga.edu' \
     --set="certSecret=${CERT_SECRET}" \
-    --set="hookConfigs.awsS3.s3BucketName=portfolio-joshbacon-name" \
-    --set="hookConfigs.awsS3.certManagerCertificateArn=${AWS_ACM_CERT_ARN}" \
+    --set="hookConfigs.awsS3.s3BucketName=portfolio.joshbacon.name" \
+    --set="hookConfigs.awsS3.certManagerCertArn=${AWS_ACM_CERT_ARN}" \
     --set="hookConfigs.awsS3.accessKeyId.secret.name=${AWS_KEYS_SECRET}" \
     --set="hookConfigs.awsS3.accessKeyId.secret.key=aws_access_key_id" \
     --set="hookConfigs.awsS3.secretAccessKey.secret.name=${AWS_KEYS_SECRET}" \

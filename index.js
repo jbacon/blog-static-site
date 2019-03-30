@@ -58,21 +58,8 @@ function enableLoginFeatures() {
 		document.getElementById('user-bar-profile-pic').firstElementChild.src = 'https://graph.facebook.com/'+getUser().facebookProfileID+'/picture?type=large'
 	}
 	else if(currentAuthType === '/auth/google/token') {
-		const client = new XMLHttpRequest()
-		client.onload = (/*e*/) => {
-			if(client.status === 200) {
-				const response = JSON.parse(client.response)
-				document.getElementById('user-bar-profile-pic').firstElementChild.src = response.entry.gphoto$thumbnail.$t
-			}
-			else {
-				handleServerError(client)
-			}
-		}
-		client.onerror = (/*e*/) => {
-			handleServerError(client)
-		}
-		client.open('GET', 'https://picasaweb.google.com/data/entry/api/user/'+getUser().googleProfileID+'?alt=json')
-		client.send()
+		const googleProfileImageURL = gapi.auth2.getAuthInstance().currentUser.get().getBasicProfile().getImageUrl()
+		document.getElementById('user-bar-profile-pic').firstElementChild.src = googleProfileImageURL
 	}
 	else {
 		document.getElementById('user-bar-profile-pic').firstElementChild.src = '/assets/images/profile-pic-default.jpg'
